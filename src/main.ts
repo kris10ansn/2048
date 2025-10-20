@@ -1,6 +1,7 @@
 import "./style.scss";
-import constants from "./constants";
+import constants, { type Direction } from "./constants";
 import { fillBackground, fillBox, fillBoxText } from "./canvas";
+import { range } from "./util/range";
 
 const createBoard = (size: number): number[][] => {
     return new Array(size).fill(null).map(() => new Array(size).fill(0));
@@ -12,7 +13,6 @@ const match = <K, V>(key: K, cases: [K[], V][]): V | null => {
             return value;
         }
     }
-
     return null;
 };
 
@@ -29,8 +29,11 @@ const main = () => {
     board[2][2] = 2;
     board[1][2] = 3;
 
+    const reverseRange = range.bind(null, constants.boardSize - 1, 0, -1);
+    const forwardRange = range.bind(null, 0, constants.boardSize - 1, 1);
+
     window.addEventListener("keydown", (event) => {
-        const direction = match(event.key.toLowerCase(), [
+        const direction = match<string, Direction>(event.key.toLowerCase(), [
             [constants.keyMap.left, "left"],
             [constants.keyMap.right, "right"],
             [constants.keyMap.up, "up"],
@@ -41,46 +44,25 @@ const main = () => {
             return;
         }
 
-        for (let i = 0; i < constants.boardSize; i++) {
-            for (let j = 0; j < constants.boardSize; j++) {
-                const y = match(direction, [
-                    [["left", "right"], i],
-                    [["up"], j],
-                    [["down"], constants.boardSize - 1 - j],
-                ])!;
+        // Reverse iteration if right or down
+        const iterator = ["right", "down"].includes(direction)
+            ? reverseRange
+            : forwardRange;
 
-                const x = match(direction, [
-                    [["left"], j],
-                    [["right"], constants.boardSize - 1 - j],
-                    [["up", "down"], i],
-                ])!;
+        const horizontal = ["right", "left"].includes(direction);
 
-                if (board[y][x] > 0) {
-                    const limit = match(direction, [
-                        [["left"], x],
-                        [["right"], constants.boardSize - 1 - x],
-                        [["up"], y],
-                        [["down"], constants.boardSize - 1 - y],
-                    ])!;
+        for (const y of iterator()) {
+            for (const x of iterator()) {
+                if (board[y][x] == 0) continue;
 
-                    for (let k = 0; k < limit; k++) {
-                        const yy = match(direction, [
-                            [["left", "right"], y],
-                            [["up"], k],
-                            [["down"], constants.boardSize - 1 - k],
-                        ])!;
+                for (const i of iterator()) {
+                    const xx = horizontal ? i : x;
+                    const yy = horizontal ? y : i;
 
-                        const xx = match(direction, [
-                            [["left"], k],
-                            [["right"], constants.boardSize - 1 - k],
-                            [["up", "down"], x],
-                        ])!;
-
-                        if (board[yy][xx] == 0) {
-                            board[yy][xx] = board[y][x];
-                            board[y][x] = 0;
-                            break;
-                        }
+                    if (board[yy][xx] == 0) {
+                        board[yy][xx] = board[y][x];
+                        board[y][x] = 0;
+                        break;
                     }
                 }
             }
