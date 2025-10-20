@@ -2,15 +2,7 @@ import "./style.scss";
 import constants, { type Direction } from "./constants";
 import { fillBackground, fillBox, fillBoxText } from "./canvas";
 import { createBoard, merge, slide } from "./board";
-
-const match = <K, V>(key: K, cases: [K[], V][]): V | null => {
-    for (const [keys, value] of cases) {
-        if (keys.includes(key)) {
-            return value;
-        }
-    }
-    return null;
-};
+import { match } from "./util/match";
 
 const main = () => {
     const canvas = document.querySelector("canvas#game") as HTMLCanvasElement;
