@@ -60,15 +60,28 @@ const main = () => {
             for (const x of iterator()) {
                 if (board[y][x] === 0) continue;
 
-                for (const i of iterator()) {
-                    const xx = horizontal ? i : x;
-                    const yy = horizontal ? y : i;
+                // Loop from the current x/y to the edge of the board
+                const delta = reverse ? 1 : -1;
+                const from = (horizontal ? x : y) + delta;
+                const to = reverse ? constants.boardSize - 1 : 0;
+
+                let [toX, toY] = [x, y];
+
+                // Find furthest 0 with no numbers inbetween
+                for (const i of range(from, to, delta)) {
+                    const [xx, yy] = horizontal ? [i, y] : [x, i];
 
                     if (board[yy][xx] === 0) {
-                        board[yy][xx] = board[y][x];
-                        board[y][x] = 0;
+                        [toX, toY] = [xx, yy];
+                    } else {
                         break;
                     }
+                }
+
+                // Move to new location if open tile was found
+                if (x !== toX || y !== toY) {
+                    board[toY][toX] = board[y][x];
+                    board[y][x] = 0;
                 }
             }
         }
