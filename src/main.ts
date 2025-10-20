@@ -79,8 +79,6 @@ const main = () => {
                 } else {
                     fillBox(ctx, x, y, "#ddd");
                 }
-
-                // strokeBoxDebugLines(ctx, x, y);
             }
         }
 
