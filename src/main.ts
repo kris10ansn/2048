@@ -27,7 +27,12 @@ const main = () => {
     const board = createBoard(constants.boardSize);
     board[2][1] = 1;
     board[2][2] = 2;
-    board[1][2] = 3;
+    board[1][0] = 3;
+    board[1][3] = 3;
+    board[0][0] = 5;
+    board[0][1] = 5;
+    board[0][2] = 5;
+    board[0][3] = 5;
 
     const reverseRange = range.bind(null, constants.boardSize - 1, 0, -1);
     const forwardRange = range.bind(null, 0, constants.boardSize - 1, 1);
@@ -50,6 +55,7 @@ const main = () => {
 
         const iterator = reverse ? reverseRange : forwardRange;
 
+        // Slide
         for (const y of iterator()) {
             for (const x of iterator()) {
                 if (board[y][x] === 0) continue;
@@ -63,6 +69,28 @@ const main = () => {
                         board[y][x] = 0;
                         break;
                     }
+                }
+            }
+        }
+
+        // Merge
+        const [dx, dy] = {
+            left: [1, 0],
+            right: [-1, 0],
+            up: [0, 1],
+            down: [0, -1],
+        }[direction];
+
+        for (const y of iterator()) {
+            for (const x of iterator()) {
+                if (board[y][x] === 0) continue;
+
+                const xx = x + dx;
+                const yy = y + dy;
+
+                if (board[y][x] === board[yy][xx]) {
+                    board[y][x] += board[yy][xx];
+                    board[yy][xx] = 0;
                 }
             }
         }
