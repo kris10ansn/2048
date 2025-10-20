@@ -45,21 +45,20 @@ const main = () => {
         }
 
         // Reverse iteration if right or down
-        const iterator = ["right", "down"].includes(direction)
-            ? reverseRange
-            : forwardRange;
-
+        const reverse = ["right", "down"].includes(direction);
         const horizontal = ["right", "left"].includes(direction);
+
+        const iterator = reverse ? reverseRange : forwardRange;
 
         for (const y of iterator()) {
             for (const x of iterator()) {
-                if (board[y][x] == 0) continue;
+                if (board[y][x] === 0) continue;
 
                 for (const i of iterator()) {
                     const xx = horizontal ? i : x;
                     const yy = horizontal ? y : i;
 
-                    if (board[yy][xx] == 0) {
+                    if (board[yy][xx] === 0) {
                         board[yy][xx] = board[y][x];
                         board[y][x] = 0;
                         break;
