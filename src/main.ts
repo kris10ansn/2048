@@ -97,9 +97,7 @@ const main = () => {
         for (const y of iterator()) {
             for (const x of iterator()) {
                 if (board[y][x] === 0) continue;
-
-                const xx = x + dx;
-                const yy = y + dy;
+                const [xx, yy] = [x + dx, y + dy];
 
                 if (board[y][x] === board[yy][xx]) {
                     board[y][x] += board[yy][xx];
