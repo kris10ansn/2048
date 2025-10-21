@@ -5,10 +5,10 @@ const constants = {
     canvasSize: 960,
 
     keyMap: {
-        left: ["a", "arrowleft"],
-        right: ["d", "arrowright"],
-        up: ["w", "arrowup"],
-        down: ["s", "arrowdown"],
+        left: ["a", "arrowleft", "h"],
+        right: ["d", "arrowright", "l"],
+        up: ["w", "arrowup", "k"],
+        down: ["s", "arrowdown", "j"],
     } as Record<Direction, string[]>,
 };
 
