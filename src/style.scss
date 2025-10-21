@@ -51,6 +51,17 @@ main {
                 margin: $box-margin;
 
                 .tile {
+                    @keyframes appear {
+                        from {
+                            transform: scale(0%);
+                        }
+                        to {
+                            transform: scale(100%);
+                        }
+                    }
+
+                    animation: appear 0.2s ease;
+
                     border-radius: $board-border-radius;
                     background-color: #eee;
 
