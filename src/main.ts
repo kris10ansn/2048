@@ -1,7 +1,7 @@
 import "./style.scss";
 import constants, { type Direction } from "./constants";
 import { fillBackground, fillBox, fillBoxText } from "./canvas";
-import { createBoard, merge, slide } from "./board";
+import { addTile, createBoard, merge, slide } from "./board";
 import { match } from "./util/match";
 
 const main = () => {
@@ -13,14 +13,15 @@ const main = () => {
     }
 
     const board = createBoard(constants.boardSize);
-    board[2][1] = 1;
-    board[2][2] = 2;
-    board[1][0] = 3;
-    board[1][3] = 3;
-    board[0][0] = 5;
-    board[0][1] = 5;
-    board[0][2] = 5;
-    board[0][3] = 5;
+
+    addTile(board, 2, 1, 1);
+    addTile(board, 2, 2, 2);
+    addTile(board, 1, 0, 3);
+    addTile(board, 1, 3, 3);
+    addTile(board, 0, 0, 5);
+    addTile(board, 0, 1, 5);
+    addTile(board, 0, 2, 5);
+    addTile(board, 0, 3, 5);
 
     window.addEventListener("keydown", (event) => {
         const direction = match<string, Direction>(event.key.toLowerCase(), [
@@ -44,9 +45,11 @@ const main = () => {
 
         for (let y = 0; y < constants.boardSize; y++) {
             for (let x = 0; x < constants.boardSize; x++) {
-                if (board[y][x] > 0) {
+                const tile = board[y][x];
+
+                if (tile !== null) {
                     fillBox(ctx, x, y, "#eee");
-                    fillBoxText(ctx, x, y, board[y][x].toString());
+                    fillBoxText(ctx, x, y, tile.value.toString());
                 } else {
                     fillBox(ctx, x, y, "#ddd");
                 }
