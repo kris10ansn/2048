@@ -35,45 +35,55 @@ main {
 
         background-color: #ccc;
 
-        .row {
+        .box,
+        .tile {
+            position: absolute;
+            width: $box-size;
+            height: $box-size;
+
+            background-color: #ddd;
+
+            border-radius: $board-border-radius;
+            margin: $box-margin;
+        }
+
+        .tile {
+            position: absolute;
+
+            @keyframes appear {
+                from {
+                    scale: 0;
+                }
+                to {
+                    scale: 1;
+                }
+            }
+
+            animation: appear 0.2s ease;
+            transition: all 0.2s ease;
+
+            border-radius: $board-border-radius;
+            background-color: #eee;
+
+            width: $box-size;
+            height: $box-size;
+
             display: flex;
-            flex-direction: row;
-            height: $box-size + $box-margin * 2;
-            width: ($box-size + $box-margin * 2) * 4;
+            justify-content: center;
+            align-items: center;
 
-            .box {
-                width: $box-size;
-                height: $box-size;
+            font-weight: bold;
+            font-size: 6rem;
+        }
 
-                background-color: #ddd;
-
-                border-radius: $board-border-radius;
-                margin: $box-margin;
-
-                .tile {
-                    @keyframes appear {
-                        from {
-                            transform: scale(0%);
-                        }
-                        to {
-                            transform: scale(100%);
-                        }
-                    }
-
-                    animation: appear 0.2s ease;
-
-                    border-radius: $board-border-radius;
-                    background-color: #eee;
-
-                    width: 100%;
-                    height: 100%;
-
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    font-weight: bold;
-                    font-size: 6rem;
+        @for $y from 0 through 4 {
+            @for $x from 0 through 4 {
+                .box[data-x="#{$x}"][data-y="#{$y}"],
+                .tile[data-x="#{$x}"][data-y="#{$y}"] {
+                    translate: $x *
+                        ($box-size + $box-margin * 2)
+                        $y *
+                        ($box-size + $box-margin * 2);
                 }
             }
         }

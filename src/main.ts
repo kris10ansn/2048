@@ -1,41 +1,75 @@
 import "./style.scss";
 
+type Point = { x: number; y: number };
+
+const setData = (element: HTMLElement, data: Record<string, any>) => {
+    for (const [key, value] of Object.entries(data)) {
+        element.setAttribute(`data-${key}`, value.toString());
+    }
+};
+
+const createElement = <T extends keyof HTMLElementTagNameMap>(
+    tag: T,
+    attributes: Partial<HTMLElementTagNameMap[T]> & {
+        data?: Record<string, any>;
+    }
+) => {
+    const element = document.createElement(tag);
+    const { data } = attributes;
+    delete attributes.data;
+
+    Object.assign(element, attributes);
+    if (data) setData(element, data);
+
+    return element;
+};
+
 class Board {
     private static SIZE = 4;
-    private boxes: Node[][];
 
-    private addTile(x: number, y: number, value: number) {
-        const box = this.boxes[y][x];
-
-        const tile = document.createElement("div");
-        tile.classList.add("tile");
-        tile.textContent = value.toString();
-
-        box.appendChild(tile);
-    }
+    private tiles: HTMLElement[] = new Array(Board.SIZE);
 
     public constructor(private root: Node) {
-        this.boxes = [];
+        this.addTile({ x: 2, y: 2 }, 2);
+        this.addTile({ x: 1, y: 1 }, 2);
 
-        for (let y = 0; y < Board.SIZE; y++) {
-            this.boxes[y] = [];
+        setTimeout(() => {
+            this.moveTile({ x: 2, y: 2 }, { x: 0, y: 2 });
+        }, 1000);
+        setTimeout(() => {
+            this.addTile({ x: 3, y: 3 }, 5);
+        }, 2000);
+    }
 
-            const row = document.createElement("div");
-            row.classList.add("row");
+    private toIndex(point: Point) {
+        return point.y * Board.SIZE + point.x;
+    }
 
-            for (let x = 0; x < Board.SIZE; x++) {
-                const box = document.createElement("div");
-                box.classList.add("box");
+    private removeTile(point: Point) {
+        delete this.tiles[this.toIndex(point)];
+    }
 
-                this.boxes[y][x] = box;
-                row.appendChild(box);
-            }
+    private addTile(point: Point, value: number) {
+        const element = createElement("div", {
+            className: "tile",
+            textContent: value.toString(),
+            data: { x: point.x, y: point.x },
+        });
 
-            this.root.appendChild(row);
-        }
+        this.tiles[this.toIndex(point)] = element;
+        this.root.appendChild(element);
+    }
 
-        this.addTile(2, 2, 2);
-        this.addTile(1, 1, 2);
+    private getTile(point: Point) {
+        return this.tiles[this.toIndex(point)];
+    }
+
+    private moveTile(from: Point, to: Point) {
+        const tile = this.getTile(from);
+        setData(tile, { ...to });
+
+        this.removeTile(from);
+        this.tiles[this.toIndex(to)] = tile;
     }
 }
 
