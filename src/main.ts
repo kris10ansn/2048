@@ -1,65 +1,45 @@
 import "./style.scss";
-import constants, { type Direction } from "./constants";
-import { fillBackground, fillBox, fillBoxText } from "./canvas";
-import { addTile, createBoard, merge, slide } from "./board";
-import { match } from "./util/match";
+
+class Board {
+    private static SIZE = 4;
+    private boxes: Node[][];
+
+    public constructor(private root: Node) {
+        this.boxes = [];
+
+        for (let y = 0; y < Board.SIZE; y++) {
+            this.boxes[y] = [];
+
+            const row = document.createElement("div");
+            row.classList.add("row");
+
+            for (let x = 0; x < Board.SIZE; x++) {
+                const box = document.createElement("div");
+                box.classList.add("box");
+
+                this.boxes[y][x] = box;
+                row.appendChild(box);
+            }
+
+            this.root.appendChild(row);
+        }
+
+        const box = this.boxes[2][2];
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+        tile.textContent = "2";
+        box.appendChild(tile);
+    }
+}
 
 const main = () => {
-    const canvas = document.querySelector("canvas#game") as HTMLCanvasElement;
-    const ctx = canvas.getContext("2d");
+    const root = document.querySelector("div#board");
 
-    if (ctx == null) {
-        throw new Error("Canvas context is null!");
+    if (root === null) {
+        throw new Error("Root element not found!");
     }
 
-    const board = createBoard(constants.boardSize);
-
-    addTile(board, 2, 1, 1);
-    addTile(board, 2, 2, 2);
-    addTile(board, 1, 0, 3);
-    addTile(board, 1, 3, 3);
-    addTile(board, 0, 0, 5);
-    addTile(board, 0, 1, 5);
-    addTile(board, 0, 2, 5);
-    addTile(board, 0, 3, 5);
-
-    window.addEventListener("keydown", (event) => {
-        const direction = match<string, Direction>(event.key.toLowerCase(), [
-            [constants.keyMap.left, "left"],
-            [constants.keyMap.right, "right"],
-            [constants.keyMap.up, "up"],
-            [constants.keyMap.down, "down"],
-        ]);
-
-        if (direction == null) {
-            return;
-        }
-
-        slide(board, direction);
-        merge(board, direction);
-        slide(board, direction);
-    });
-
-    const loop = (_time: DOMHighResTimeStamp) => {
-        fillBackground(ctx, "#ccc");
-
-        for (let y = 0; y < constants.boardSize; y++) {
-            for (let x = 0; x < constants.boardSize; x++) {
-                const tile = board[y][x];
-
-                if (tile !== null) {
-                    fillBox(ctx, x, y, "#eee");
-                    fillBoxText(ctx, x, y, tile.value.toString());
-                } else {
-                    fillBox(ctx, x, y, "#ddd");
-                }
-            }
-        }
-
-        requestAnimationFrame(loop);
-    };
-
-    requestAnimationFrame(loop);
+    const board = new Board(root);
 };
 
 main();

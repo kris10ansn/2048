@@ -1,3 +1,10 @@
+:root,
+html,
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+
 * {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -12,7 +19,52 @@ main {
     justify-content: center;
     align-items: center;
 
-    canvas#game {
-        border-radius: 12px;
+    #board {
+        $board-size: 960px;
+        $board-border-radius: 24px;
+
+        $box-margin: 8px;
+        $box-size: $board-size / 4 - $box-margin * 2;
+
+        width: $board-size + $box-margin * 2;
+        height: $board-size + $box-margin * 2;
+
+        padding: $box-margin;
+
+        border-radius: $board-border-radius;
+
+        background-color: #ccc;
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            height: $box-size + $box-margin * 2;
+            width: ($box-size + $box-margin * 2) * 4;
+
+            .box {
+                width: $box-size;
+                height: $box-size;
+
+                background-color: #ddd;
+
+                border-radius: $board-border-radius;
+                margin: $box-margin;
+
+                .tile {
+                    border-radius: $board-border-radius;
+                    background-color: #eee;
+
+                    width: 100%;
+                    height: 100%;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    font-weight: bold;
+                    font-size: 6rem;
+                }
+            }
+        }
     }
 }
