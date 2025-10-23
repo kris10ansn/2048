@@ -29,19 +29,7 @@ export class HTMLBoardHandler implements BoardHandler {
 
     public getTile(point: Point) {
         const tile = this.getTileElement(point);
-
-        if (!tile) {
-            return null;
-        }
-
-        const value = parseInt(tile.textContent);
-
-        if (isNaN(value)) {
-            const message = `Tile content is not a number (${point.x}, ${point.y}): ${tile.textContent}`;
-            throw new Error(message);
-        }
-
-        return value;
+        return tile ? this.getTileValue(tile) : null;
     }
 
     public mergeTile(point1: Point, point2: Point): void {
@@ -68,8 +56,19 @@ export class HTMLBoardHandler implements BoardHandler {
     private getTileElement(point: Point): HTMLElement | undefined {
         return this.tiles[this.toIndex(point)];
     }
+
     private setTileElement(point: Point, element: HTMLElement) {
         this.tiles[this.toIndex(point)] = element;
+    }
+
+    private getTileValue(tile: HTMLElement): number {
+        const value = parseInt(tile.textContent);
+
+        if (isNaN(value)) {
+            throw new Error(`Tile content is not a number ${tile.textContent}`);
+        }
+
+        return value;
     }
 
     private toIndex(point: Point) {
