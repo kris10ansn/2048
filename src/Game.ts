@@ -4,8 +4,7 @@ import {
     iterateFrom,
     isHorizontal,
 } from "./boardIterators";
-
-export type Direction = "up" | "down" | "left" | "right";
+import type { Direction } from "./constants";
 
 export class Game {
     public constructor(
