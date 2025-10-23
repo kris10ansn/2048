@@ -1,4 +1,4 @@
-import type { Direction } from "./Game";
+import type { Direction } from "./constants";
 import { range } from "./util/range";
 
 export const shouldReverseIterate = (direction: Direction) =>
