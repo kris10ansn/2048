@@ -1,28 +1,7 @@
+import { createElement, setDataAttributes } from "./dom";
 import "./style.scss";
 
 type Point = { x: number; y: number };
-
-const setData = (element: HTMLElement, data: Record<string, any>) => {
-    for (const [key, value] of Object.entries(data)) {
-        element.setAttribute(`data-${key}`, value.toString());
-    }
-};
-
-const createElement = <T extends keyof HTMLElementTagNameMap>(
-    tag: T,
-    attributes: Partial<HTMLElementTagNameMap[T]> & {
-        data?: Record<string, any>;
-    }
-) => {
-    const element = document.createElement(tag);
-    const { data } = attributes;
-    delete attributes.data;
-
-    Object.assign(element, attributes);
-    if (data) setData(element, data);
-
-    return element;
-};
 
 class Board {
     private static SIZE = 4;
@@ -66,7 +45,7 @@ class Board {
 
     private moveTile(from: Point, to: Point) {
         const tile = this.getTile(from);
-        setData(tile, { ...to });
+        setDataAttributes(tile, { ...to });
 
         this.removeTile(from);
         this.tiles[this.toIndex(to)] = tile;
