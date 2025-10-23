@@ -11,13 +11,6 @@ class Board {
     public constructor(private root: Node) {
         this.addTile({ x: 2, y: 2 }, 2);
         this.addTile({ x: 1, y: 1 }, 2);
-
-        setTimeout(() => {
-            this.moveTile({ x: 2, y: 2 }, { x: 0, y: 2 });
-        }, 1000);
-        setTimeout(() => {
-            this.addTile({ x: 3, y: 3 }, 5);
-        }, 2000);
     }
 
     private toIndex(point: Point) {
@@ -35,7 +28,7 @@ class Board {
             data: { x: point.x, y: point.x },
         });
 
-        this.tiles[this.toIndex(point)] = element;
+        this.setTile(point, element);
         this.root.appendChild(element);
     }
 
@@ -43,12 +36,16 @@ class Board {
         return this.tiles[this.toIndex(point)];
     }
 
+    private setTile(point: Point, element: Element) {
+        this.tiles[this.toIndex(point)] = element;
+    }
+
     private moveTile(from: Point, to: Point) {
         const tile = this.getTile(from);
         setDataAttributes(tile, { ...to });
 
         this.removeTile(from);
-        this.tiles[this.toIndex(to)] = tile;
+        this.setTile(to, tile);
     }
 }
 
