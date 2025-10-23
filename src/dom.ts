@@ -7,12 +7,12 @@ export const setDataAttributes = (
     }
 };
 
-export const createElement = <T extends keyof HTMLElementTagNameMap>(
+export const createHtmlElement = <T extends keyof HTMLElementTagNameMap>(
     tag: T,
     attributes: Partial<HTMLElementTagNameMap[T]> & {
         data?: Record<string, any>;
     }
-) => {
+): HTMLElementTagNameMap[T] => {
     const element = document.createElement(tag);
     const { data } = attributes;
     delete attributes.data;

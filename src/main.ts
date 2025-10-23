@@ -1,4 +1,4 @@
-import { createElement, setDataAttributes } from "./dom";
+import { createHtmlElement, setDataAttributes } from "./dom";
 import "./style.scss";
 
 type Point = { x: number; y: number };
@@ -29,7 +29,7 @@ class Board {
     }
 
     private addTile(point: Point, value: number) {
-        const element = createElement("div", {
+        const element = createHtmlElement("div", {
             className: "tile",
             textContent: value.toString(),
             data: { x: point.x, y: point.x },
