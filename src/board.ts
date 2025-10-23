@@ -2,10 +2,9 @@ import { createHtmlElement, setDataAttributes } from "./dom";
 
 export interface BoardHandler {
     addTile(point: Point, value: number): void;
-    getTile(point: Point): number;
+    getTile(point: Point): number | null;
     mergeTile(point1: Point, point2: Point): void;
 }
-
 export type Point = { x: number; y: number };
 
 export class HTMLBoardHandler implements BoardHandler {
@@ -27,7 +26,20 @@ export class HTMLBoardHandler implements BoardHandler {
     }
 
     public getTile(point: Point) {
-        return parseInt(this.getTileElement(point).textContent);
+        const tile = this.getTileElement(point);
+
+        if (!tile) {
+            return null;
+        }
+
+        const value = parseInt(tile.textContent);
+
+        if (isNaN(value)) {
+            const message = `Tile content is not a number (${point.x}, ${point.y}): ${tile.textContent}`;
+            throw new Error(message);
+        }
+
+        return value;
     }
 
     public mergeTile(point1: Point, point2: Point): void {
@@ -46,7 +58,7 @@ export class HTMLBoardHandler implements BoardHandler {
         delete this.tiles[this.toIndex(point)];
     }
 
-    private getTileElement(point: Point) {
+    private getTileElement(point: Point): HTMLElement | undefined {
         return this.tiles[this.toIndex(point)];
     }
     private setTileElement(point: Point, element: HTMLElement) {
