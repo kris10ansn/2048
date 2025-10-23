@@ -1,11 +1,13 @@
 import { createHtmlElement, setDataAttributes } from "./dom";
 
+export type Point = { x: number; y: number };
+
 export interface BoardHandler {
     addTile(point: Point, value: number): void;
     getTile(point: Point): number | null;
     mergeTile(point1: Point, point2: Point): void;
+    moveTile(from: Point, to: Point): void;
 }
-export type Point = { x: number; y: number };
 
 export class HTMLBoardHandler implements BoardHandler {
     private tiles: HTMLElement[];
@@ -48,6 +50,11 @@ export class HTMLBoardHandler implements BoardHandler {
 
     public moveTile(from: Point, to: Point) {
         const tile = this.getTileElement(from);
+
+        if (!tile) {
+            throw new Error(`No tile found at position (${from.x}, ${from.y})`);
+        }
+
         setDataAttributes(tile, { ...to });
 
         this.removeTile(from);
