@@ -6,7 +6,7 @@ type Point = { x: number; y: number };
 class Board {
     private static SIZE = 4;
 
-    private tiles: HTMLElement[] = new Array(Board.SIZE);
+    private tiles: Element[] = new Array(Board.SIZE);
 
     public constructor(private root: Node) {
         this.addTile({ x: 2, y: 2 }, 2);

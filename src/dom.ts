@@ -1,5 +1,5 @@
 export const setDataAttributes = (
-    element: HTMLElement,
+    element: Element,
     data: Record<string, any>
 ) => {
     for (const [key, value] of Object.entries(data)) {
