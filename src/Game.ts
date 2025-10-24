@@ -3,9 +3,9 @@ import {
     iterateFrom,
     isHorizontal,
 } from "./boardIterators";
-import type { Direction } from "./constants";
 import type { IBoardHandler } from "./board-handlers/IBoardHandler";
-import type { Point } from "./util/Point";
+import type { Point } from "./types/Point";
+import type { Direction } from "./types/Direction";
 
 export class Game {
     public constructor(

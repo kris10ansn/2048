@@ -1,4 +1,4 @@
-import type { Direction } from "./constants";
+import type { Direction } from "./types/Direction";
 import { range } from "./util/range";
 
 export const shouldReverseIterate = (direction: Direction) =>

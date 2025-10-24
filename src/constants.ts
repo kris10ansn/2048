@@ -1,4 +1,4 @@
-export type Direction = "up" | "right" | "left" | "down";
+import type { Direction } from "./types/Direction";
 
 const constants = {
     boardSize: 4,
