@@ -6,6 +6,14 @@ import {
 import type { IBoardHandler } from "./board-handlers/IBoardHandler";
 import type { Point } from "./types/Point";
 import type { Direction } from "./types/Direction";
+import { addPoints } from "./util/points";
+
+const deltas: Record<Direction, Point> = {
+    left: { x: 1, y: 0 },
+    right: { x: -1, y: 0 },
+    up: { x: 0, y: 1 },
+    down: { x: 0, y: -1 },
+};
 
 export class Game {
     public constructor(
@@ -40,6 +48,24 @@ export class Game {
             if (x !== destination.x || y !== destination.y) {
                 this.boardHandler.moveTile({ x, y }, destination);
             }
+        }
+    }
+
+    public merge(direction: Direction) {
+        const iterator = createBoardIterator(this.size, direction);
+
+        for (const { x, y } of iterator()) {
+            const point = { x, y };
+            const nextPoint = addPoints(point, deltas[direction]);
+
+            const value = this.boardHandler.getTile(point);
+            const nextValue = this.boardHandler.getTile(nextPoint);
+
+            if (value === null || value !== nextValue) {
+                continue;
+            }
+
+            this.boardHandler.mergeTile(nextPoint, point);
         }
     }
 }
