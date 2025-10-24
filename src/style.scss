@@ -75,18 +75,21 @@ main {
             font-weight: bold;
             font-size: 6rem;
 
-            &.removed {
-                @keyframes disappear {
-                    from {
+            &.merged {
+                @keyframes merge {
+                    0% {
                         scale: 1;
                     }
-                    to {
-                        scale: 0;
+                    50% {
+                        scale: 1.2;
+                    }
+                    100% {
+                        scale: 1;
                     }
                 }
 
-                animation: disappear #{$ENV_VITE_ANIMATION_REMOVE_DURATION}ms
-                    ease forwards;
+                animation: merge #{$ENV_VITE_ANIMATION_MERGE_DURATION}ms ease
+                    forwards;
             }
         }
 

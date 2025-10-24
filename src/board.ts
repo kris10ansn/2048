@@ -45,7 +45,19 @@ export class HTMLBoardHandler implements BoardHandler {
             tile2,
             this.getTileValue(tile1) + this.getTileValue(tile2)
         );
+
+        // Add merged class for animation
+        tile2.classList.add("merged");
+
+        // Move tile1 into tile2's position and remove it from the tracked tiles
+        this.moveTile(point1, point2);
         this.removeTile(point1);
+
+        // Remove the tile1 element after the merge animation is complete
+        setTimeout(() => {
+            tile1.remove();
+            tile2.classList.remove("merged");
+        }, import.meta.env.VITE_ANIMATION_MERGE_DURATION + 1);
     }
 
     public moveTile(from: Point, to: Point) {
@@ -62,14 +74,7 @@ export class HTMLBoardHandler implements BoardHandler {
     }
 
     private removeTile(point: Point) {
-        const tile = this.tiles[this.toIndex(point)];
         delete this.tiles[this.toIndex(point)];
-
-        tile.classList.add("removed");
-
-        setTimeout(() => {
-            tile.remove();
-        }, import.meta.env.VITE_ANIMATION_REMOVE_DURATION + 1);
     }
 
     private getTileElement(point: Point): HTMLElement | undefined {
