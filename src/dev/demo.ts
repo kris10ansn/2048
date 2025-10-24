@@ -1,4 +1,4 @@
-import type { IBoardHandler } from "../IBoardHandler";
+import type { IBoardHandler } from "../board-handlers/IBoardHandler";
 
 export const runDemo = (board: IBoardHandler) => {
     board.addTile({ x: 2, y: 2 }, 2);
