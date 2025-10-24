@@ -1,4 +1,4 @@
-import type { BoardHandler, Point } from "./board";
+import type { IBoardHandler, Point } from "./board";
 import {
     createBoardIterator,
     iterateFrom,
@@ -8,7 +8,7 @@ import type { Direction } from "./constants";
 
 export class Game {
     public constructor(
-        private boardHandler: BoardHandler,
+        private boardHandler: IBoardHandler,
         private size: number
     ) {}
 

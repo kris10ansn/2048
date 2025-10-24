@@ -1,6 +1,6 @@
-import type { BoardHandler } from "../board";
+import type { IBoardHandler } from "../board";
 
-export const runDemo = (board: BoardHandler) => {
+export const runDemo = (board: IBoardHandler) => {
     board.addTile({ x: 2, y: 2 }, 2);
     board.addTile({ x: 2, y: 1 }, 4);
     board.addTile({ x: 1, y: 1 }, 2);
