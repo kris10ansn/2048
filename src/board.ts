@@ -20,7 +20,7 @@ export class HTMLBoardHandler implements BoardHandler {
         const element = createHtmlElement("div", {
             className: "tile",
             textContent: value.toString(),
-            data: { x: point.x, y: point.x },
+            data: { x: point.x, y: point.y },
         });
 
         this.setTileElement(point, element);
