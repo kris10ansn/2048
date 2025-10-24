@@ -14,9 +14,14 @@ const main = () => {
     const board = new HTMLBoardHandler(root, constants.boardSize);
 
     board.addTile({ x: 2, y: 2 }, 2);
+    board.addTile({ x: 2, y: 1 }, 5);
     board.addTile({ x: 1, y: 1 }, 2);
 
     const game = new Game(board, constants.boardSize);
+
+    setTimeout(() => {
+        board.mergeTile({ x: 2, y: 1 }, { x: 1, y: 1 });
+    }, 2000);
 
     window.addEventListener("keydown", (event) => {
         const direction = match<string, Direction>(event.key.toLowerCase(), [
