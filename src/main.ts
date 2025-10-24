@@ -1,5 +1,5 @@
 import constants, { type Direction } from "./constants";
-import { HTMLBoardHandler } from "./board";
+import { HTMLBoardHandler } from "./HTMLBoardHandler";
 import { Game } from "./Game";
 import { match } from "./util/match";
 import "./style.scss";

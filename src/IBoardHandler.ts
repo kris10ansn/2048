@@ -1,4 +1,4 @@
-import type { Point } from "./board";
+import type { Point } from "./HTMLBoardHandler";
 
 export interface IBoardHandler {
     addTile(point: Point, value: number): void;

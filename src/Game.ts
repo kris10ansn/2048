@@ -1,4 +1,4 @@
-import type { Point } from "./board";
+import type { Point } from "./HTMLBoardHandler";
 import {
     createBoardIterator,
     iterateFrom,
