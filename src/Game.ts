@@ -6,14 +6,7 @@ import {
 import type { IBoardHandler } from "./board-handlers/IBoardHandler";
 import type { Point } from "./types/Point";
 import type { Direction } from "./types/Direction";
-import { addPoints } from "./util/points";
-
-const deltas: Record<Direction, Point> = {
-    left: { x: 1, y: 0 },
-    right: { x: -1, y: 0 },
-    up: { x: 0, y: 1 },
-    down: { x: 0, y: -1 },
-};
+import { addPoints, directionVectors, multPoint } from "./util/points";
 
 export class Game {
     public constructor(
@@ -56,7 +49,10 @@ export class Game {
 
         for (const { x, y } of iterator()) {
             const point = { x, y };
-            const nextPoint = addPoints(point, deltas[direction]);
+            const nextPoint = addPoints(
+                point,
+                multPoint(directionVectors[direction], -1)
+            );
 
             const value = this.boardHandler.getTile(point);
             const nextValue = this.boardHandler.getTile(nextPoint);
