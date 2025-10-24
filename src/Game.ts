@@ -2,7 +2,7 @@ import {
     createBoardIterator,
     iterateFrom,
     isHorizontal,
-} from "./boardIterators";
+} from "./util/boardIterators";
 import type { IBoardHandler } from "./board-handlers/IBoardHandler";
 import type { Point } from "./types/Point";
 import type { Direction } from "./types/Direction";
