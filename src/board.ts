@@ -33,7 +33,19 @@ export class HTMLBoardHandler implements BoardHandler {
     }
 
     public mergeTile(point1: Point, point2: Point): void {
-        throw new Error("Method not implemented.");
+        const tile1 = this.getTileElement(point1);
+        const tile2 = this.getTileElement(point2);
+
+        if (!tile1 || !tile2) {
+            const json = JSON.stringify({ point1, point2, tile1, tile2 });
+            throw new Error(`No tile found at position ` + json);
+        }
+
+        this.setTileValue(
+            tile2,
+            this.getTileValue(tile1) * this.getTileValue(tile2)
+        );
+        this.removeTile(point1);
     }
 
     public moveTile(from: Point, to: Point) {
@@ -50,6 +62,7 @@ export class HTMLBoardHandler implements BoardHandler {
     }
 
     private removeTile(point: Point) {
+        this.tiles[this.toIndex(point)].remove();
         delete this.tiles[this.toIndex(point)];
     }
 
@@ -69,6 +82,10 @@ export class HTMLBoardHandler implements BoardHandler {
         }
 
         return value;
+    }
+
+    private setTileValue(tile: HTMLElement, value: number) {
+        tile.textContent = value.toString();
     }
 
     private toIndex(point: Point) {
