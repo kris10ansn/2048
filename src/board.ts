@@ -57,7 +57,7 @@ export class HTMLBoardHandler implements BoardHandler {
         setTimeout(() => {
             tile1.remove();
             tile2.classList.remove("merged");
-        }, import.meta.env.VITE_ANIMATION_MERGE_DURATION + 1);
+        }, Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1);
     }
 
     public moveTile(from: Point, to: Point) {
