@@ -43,7 +43,7 @@ export class HTMLBoardHandler implements BoardHandler {
 
         this.setTileValue(
             tile2,
-            this.getTileValue(tile1) * this.getTileValue(tile2)
+            this.getTileValue(tile1) + this.getTileValue(tile2)
         );
         this.removeTile(point1);
     }
