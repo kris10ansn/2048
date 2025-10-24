@@ -1,13 +1,7 @@
 import { createHtmlElement, setDataAttributes } from "./dom";
+import type { IBoardHandler } from "./IBoardHandler";
 
 export type Point = { x: number; y: number };
-
-export interface IBoardHandler {
-    addTile(point: Point, value: number): void;
-    getTile(point: Point): number | null;
-    mergeTile(point1: Point, point2: Point): void;
-    moveTile(from: Point, to: Point): void;
-}
 
 export class HTMLBoardHandler implements IBoardHandler {
     private tiles: HTMLElement[];
