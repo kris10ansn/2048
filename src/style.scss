@@ -74,6 +74,20 @@ main {
 
             font-weight: bold;
             font-size: 6rem;
+
+            &.removed {
+                @keyframes disappear {
+                    from {
+                        scale: 1;
+                    }
+                    to {
+                        scale: 0;
+                    }
+                }
+
+                animation: disappear #{$ENV_VITE_ANIMATION_REMOVE_DURATION}ms
+                    ease forwards;
+            }
         }
 
         @for $y from 0 through 4 {

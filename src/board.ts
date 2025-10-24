@@ -62,8 +62,14 @@ export class HTMLBoardHandler implements BoardHandler {
     }
 
     private removeTile(point: Point) {
-        this.tiles[this.toIndex(point)].remove();
+        const tile = this.tiles[this.toIndex(point)];
         delete this.tiles[this.toIndex(point)];
+
+        tile.classList.add("removed");
+
+        setTimeout(() => {
+            tile.remove();
+        }, import.meta.env.VITE_ANIMATION_REMOVE_DURATION + 1);
     }
 
     private getTileElement(point: Point): HTMLElement | undefined {
