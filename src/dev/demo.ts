@@ -6,6 +6,6 @@ export const runDemo = (board: BoardHandler) => {
     board.addTile({ x: 1, y: 1 }, 2);
 
     setTimeout(() => {
-        board.mergeTile({ x: 2, y: 1 }, { x: 1, y: 1 });
+        board.mergeTile({ x: 1, y: 1 }, { x: 2, y: 1 });
     }, 2000);
 };
