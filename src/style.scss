@@ -59,7 +59,7 @@ main {
                 }
             }
 
-            animation: appear 0.2s ease;
+            animation: appear 0.2s ease forwards;
             transition: all 0.2s ease;
 
             border-radius: $board-border-radius;
@@ -88,8 +88,8 @@ main {
                     }
                 }
 
-                animation: merge #{$ENV_VITE_ANIMATION_MERGE_DURATION}ms ease
-                    forwards;
+                animation: appear 0.2s ease forwards,
+                    merge #{$ENV_VITE_ANIMATION_MERGE_DURATION}ms ease forwards;
             }
         }
 
