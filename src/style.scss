@@ -1,3 +1,5 @@
+@use "sass:math";
+
 :root,
 html,
 body {
@@ -24,7 +26,7 @@ main {
         $board-border-radius: 24px;
 
         $box-margin: 8px;
-        $box-size: $board-size / 4 - $box-margin * 2;
+        $box-size: math.div($board-size, 4) - $box-margin * 2;
 
         width: $board-size + $box-margin * 2;
         height: $board-size + $box-margin * 2;
