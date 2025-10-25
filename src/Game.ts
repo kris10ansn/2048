@@ -14,10 +14,39 @@ export class Game {
         private size: number
     ) {}
 
+    public start() {
+        this.addRandomTile();
+        this.addRandomTile();
+    }
+
     public slide(direction: Direction) {
+        // Shift tiles, merge and shift again
         this.shiftTiles(direction);
         this.doMerges(direction);
         this.shiftTiles(direction);
+
+        // Add a new random tile
+        this.addRandomTile();
+    }
+
+    private addRandomTile() {
+        const emptyTiles: Point[] = [];
+
+        const iterator = createBoardIterator(this.size, "right");
+        for (const { x, y } of iterator()) {
+            if (this.boardHandler.getTile({ x, y }) === null) {
+                emptyTiles.push({ x, y });
+            }
+        }
+
+        if (emptyTiles.length === 0) {
+            return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * emptyTiles.length);
+        const value = Math.random() < 0.9 ? 2 : 4;
+
+        this.boardHandler.addTile(emptyTiles[randomIndex], value);
     }
 
     private shiftTiles(direction: Direction) {
