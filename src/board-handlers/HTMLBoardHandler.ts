@@ -5,9 +5,11 @@ import type { Point } from "../types/Point";
 
 export class HTMLBoardHandler implements IBoardHandler {
     private tiles: Matrix<HTMLElement>;
+    private mergingTiles: Matrix<HTMLElement>;
 
     public constructor(private root: Node, size: number) {
         this.tiles = new Matrix<HTMLElement>(size);
+        this.mergingTiles = new Matrix<HTMLElement>(size);
     }
 
     public addTile(point: Point, value: number) {
@@ -46,9 +48,15 @@ export class HTMLBoardHandler implements IBoardHandler {
         // Remove tile1 from internal state and move its element into point2
         this.tiles.delete(point1);
         this.moveTileElement(tile1, point2);
+        this.mergingTiles.set(point2, tile1);
 
         // Remove the tile1 element after the merge animation is complete
         setTimeout(() => {
+            const mergingTilesIndex = this.mergingTiles.data.findIndex(
+                (tile) => tile === tile1
+            );
+            this.mergingTiles.deleteIndex(mergingTilesIndex);
+
             tile1.remove();
             tile2.classList.remove("merged");
         }, Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1);
@@ -62,9 +70,12 @@ export class HTMLBoardHandler implements IBoardHandler {
         }
 
         this.moveTileElement(tile, to);
-
         this.tiles.delete(from);
         this.tiles.set(to, tile);
+
+        // If there is a tile being merged into this tile, move it as well
+        const mergingTile = this.mergingTiles.get(from);
+        if (mergingTile) this.moveTileElement(mergingTile, to);
     }
 
     private moveTileElement(tile: HTMLElement, to: Point) {
