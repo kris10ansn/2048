@@ -1,22 +1,34 @@
 import type { Point } from "../types/Point";
 
 export class Matrix<T> {
-    private data: T[];
+    public readonly data: T[];
 
     public constructor(private size: number) {
         this.data = new Array(size * size);
     }
 
     public get(point: Point): T | undefined {
-        return this.data[this.toIndex(point)];
+        return this.getIndex(this.toIndex(point));
     }
 
     public set(point: Point, value: T) {
-        this.data[this.toIndex(point)] = value;
+        this.setIndex(this.toIndex(point), value);
     }
 
     public delete(point: Point) {
-        delete this.data[this.toIndex(point)];
+        this.deleteIndex(this.toIndex(point));
+    }
+
+    public getIndex(index: number): T | undefined {
+        return this.data[index];
+    }
+
+    public setIndex(index: number, value: T) {
+        this.data[index] = value;
+    }
+
+    public deleteIndex(index: number) {
+        delete this.data[index];
     }
 
     private toIndex(point: Point) {
