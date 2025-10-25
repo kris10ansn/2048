@@ -7,6 +7,7 @@ import type { IBoardHandler } from "./board-handlers/IBoardHandler";
 import type { Point } from "./types/Point";
 import type { Direction } from "./types/Direction";
 import { addPoints, directionVectors, multPoint } from "./util/points";
+import { Matrix } from "./util/Matrix";
 
 export class Game {
     public constructor(
@@ -101,6 +102,10 @@ export class Game {
                 point,
                 multPoint(directionVectors[direction], -1)
             );
+
+            if (!Matrix.pointInBounds(nextPoint, this.size)) {
+                continue;
+            }
 
             const value = this.boardHandler.getTile(point);
             const nextValue = this.boardHandler.getTile(nextPoint);
