@@ -1,12 +1,13 @@
 import { createHtmlElement, setDataAttributes } from "../dom";
+import { Matrix } from "../util/Matrix";
 import type { IBoardHandler } from "./IBoardHandler";
 import type { Point } from "../types/Point";
 
 export class HTMLBoardHandler implements IBoardHandler {
-    private tiles: HTMLElement[];
+    private tiles: Matrix<HTMLElement>;
 
-    public constructor(private root: Node, private size: number) {
-        this.tiles = new Array(size * size);
+    public constructor(private root: Node, size: number) {
+        this.tiles = new Matrix<HTMLElement>(size);
     }
 
     public addTile(point: Point, value: number) {
@@ -16,18 +17,18 @@ export class HTMLBoardHandler implements IBoardHandler {
             data: { x: point.x, y: point.y },
         });
 
-        this.setTileElement(point, element);
+        this.tiles.set(point, element);
         this.root.appendChild(element);
     }
 
     public getTile(point: Point) {
-        const tile = this.getTileElement(point);
+        const tile = this.tiles.get(point);
         return tile ? this.getTileValue(tile) : null;
     }
 
     public mergeTile(point1: Point, point2: Point): void {
-        const tile1 = this.getTileElement(point1);
-        const tile2 = this.getTileElement(point2);
+        const tile1 = this.tiles.get(point1);
+        const tile2 = this.tiles.get(point2);
 
         if (!tile1 || !tile2) {
             const json = JSON.stringify({ point1, point2, tile1, tile2 });
@@ -43,7 +44,7 @@ export class HTMLBoardHandler implements IBoardHandler {
         tile2.classList.add("merged");
 
         // Remove tile1 from internal state and move its element into point2
-        this.removeTile(point1);
+        this.tiles.delete(point1);
         this.moveTileElement(tile1, point2);
 
         // Remove the tile1 element after the merge animation is complete
@@ -54,7 +55,7 @@ export class HTMLBoardHandler implements IBoardHandler {
     }
 
     public moveTile(from: Point, to: Point) {
-        const tile = this.getTileElement(from);
+        const tile = this.tiles.get(from);
 
         if (!tile) {
             throw new Error(`No tile found at position (${from.x}, ${from.y})`);
@@ -62,24 +63,12 @@ export class HTMLBoardHandler implements IBoardHandler {
 
         this.moveTileElement(tile, to);
 
-        this.removeTile(from);
-        this.setTileElement(to, tile);
-    }
-
-    private removeTile(point: Point) {
-        delete this.tiles[this.toIndex(point)];
+        this.tiles.delete(from);
+        this.tiles.set(to, tile);
     }
 
     private moveTileElement(tile: HTMLElement, to: Point) {
         setDataAttributes(tile, { ...to });
-    }
-
-    private getTileElement(point: Point): HTMLElement | undefined {
-        return this.tiles[this.toIndex(point)];
-    }
-
-    private setTileElement(point: Point, element: HTMLElement) {
-        this.tiles[this.toIndex(point)] = element;
     }
 
     private getTileValue(tile: HTMLElement): number {
@@ -94,9 +83,5 @@ export class HTMLBoardHandler implements IBoardHandler {
 
     private setTileValue(tile: HTMLElement, value: number) {
         tile.textContent = value.toString();
-    }
-
-    private toIndex(point: Point) {
-        return point.y * this.size + point.x;
     }
 }
