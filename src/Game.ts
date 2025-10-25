@@ -15,6 +15,12 @@ export class Game {
     ) {}
 
     public slide(direction: Direction) {
+        this.shiftTiles(direction);
+        this.doMerges(direction);
+        this.shiftTiles(direction);
+    }
+
+    private shiftTiles(direction: Direction) {
         const iterator = createBoardIterator(this.size, direction);
 
         for (const { x, y } of iterator()) {
@@ -44,7 +50,7 @@ export class Game {
         }
     }
 
-    public merge(direction: Direction) {
+    private doMerges(direction: Direction) {
         const iterator = createBoardIterator(this.size, direction);
 
         for (const { x, y } of iterator()) {

@@ -34,8 +34,6 @@ const main = () => {
         }
 
         game.slide(direction);
-        game.merge(direction);
-        game.slide(direction);
     });
 };
 
