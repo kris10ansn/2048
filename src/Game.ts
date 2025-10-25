@@ -14,7 +14,7 @@ export class Game {
         private size: number
     ) {}
 
-    public start() {
+    public setup() {
         this.addRandomTile();
         this.addRandomTile();
     }
