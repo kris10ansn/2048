@@ -20,10 +20,16 @@ export class Game {
     }
 
     public slide(direction: Direction) {
-        // Shift tiles, merge and shift again
-        this.shiftTiles(direction);
-        this.doMerges(direction);
-        this.shiftTiles(direction);
+        const didShift = this.shiftTiles(direction);
+        const didMerge = this.doMerges(direction);
+
+        if (!didShift && !didMerge) {
+            return;
+        }
+
+        if (didMerge) {
+            this.shiftTiles(direction);
+        }
 
         // Add a new random tile
         this.addRandomTile();
@@ -49,8 +55,10 @@ export class Game {
         this.boardHandler.addTile(emptyTiles[randomIndex], value);
     }
 
-    private shiftTiles(direction: Direction) {
+    private shiftTiles(direction: Direction): boolean {
         const iterator = createBoardIterator(this.size, direction);
+
+        let didShift = false;
 
         for (const { x, y } of iterator()) {
             if (this.boardHandler.getTile({ x, y }) === null) {
@@ -75,12 +83,17 @@ export class Game {
             // Move to new location if open tile was found
             if (x !== destination.x || y !== destination.y) {
                 this.boardHandler.moveTile({ x, y }, destination);
+                didShift = true;
             }
         }
+
+        return didShift;
     }
 
-    private doMerges(direction: Direction) {
+    private doMerges(direction: Direction): boolean {
         const iterator = createBoardIterator(this.size, direction);
+
+        let didMerge = false;
 
         for (const { x, y } of iterator()) {
             const point = { x, y };
@@ -97,6 +110,9 @@ export class Game {
             }
 
             this.boardHandler.mergeTile(nextPoint, point);
+            didMerge = true;
         }
+
+        return didMerge;
     }
 }
