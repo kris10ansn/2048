@@ -15,12 +15,13 @@ const main = () => {
 
     const board = new HTMLBoardHandler(root, constants.boardSize);
 
-    if (import.meta.env.DEV) {
-        import("./dev/demo").then((module) => module.runDemo(board));
-    }
-
     const game = new Game(board, constants.boardSize);
-    game.setup();
+
+    if (import.meta.env.DEV) {
+        import("./dev/demo").then((module) => module.runDemo(board, game));
+    } else {
+        game.setup();
+    }
 
     window.addEventListener("keydown", (event) => {
         const direction = match<string, Direction>(event.key.toLowerCase(), [
