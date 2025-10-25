@@ -8,15 +8,15 @@ export class Matrix<T> {
     }
 
     public get(point: Point): T | undefined {
-        return this.getIndex(this.toIndex(point));
+        return this.getIndex(this.pointToIndex(point));
     }
 
     public set(point: Point, value: T) {
-        this.setIndex(this.toIndex(point), value);
+        this.setIndex(this.pointToIndex(point), value);
     }
 
     public delete(point: Point) {
-        this.deleteIndex(this.toIndex(point));
+        this.deleteIndex(this.pointToIndex(point));
     }
 
     public getIndex(index: number): T | undefined {
@@ -31,7 +31,7 @@ export class Matrix<T> {
         delete this.data[index];
     }
 
-    private toIndex(point: Point) {
+    private pointToIndex(point: Point) {
         if (
             point.x < 0 ||
             point.x >= this.size ||
