@@ -20,6 +20,7 @@ const main = () => {
     }
 
     const game = new Game(board, constants.boardSize);
+    game.start();
 
     window.addEventListener("keydown", (event) => {
         const direction = match<string, Direction>(event.key.toLowerCase(), [
