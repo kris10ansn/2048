@@ -28,38 +28,37 @@ export class HTMLBoardHandler implements IBoardHandler {
         return tile ? this.getTileValue(tile) : null;
     }
 
-    public mergeTile(point1: Point, point2: Point): void {
-        const tile1 = this.tiles.get(point1);
-        const tile2 = this.tiles.get(point2);
+    public mergeTile(from: Point, to: Point): void {
+        const subject = this.tiles.get(from);
+        const target = this.tiles.get(to);
 
-        if (!tile1 || !tile2) {
-            const json = JSON.stringify({ point1, point2, tile1, tile2 });
+        if (!subject || !target) {
+            const json = JSON.stringify({ from, to, subject, target });
             throw new Error(`No tile found at position ` + json);
         }
 
-        this.setTileValue(
-            tile2,
-            this.getTileValue(tile1) + this.getTileValue(tile2)
-        );
+        const sum = this.getTileValue(subject) + this.getTileValue(target);
+        this.setTileValue(target, sum);
 
-        // Add merged class for animation
-        tile2.classList.add("merged");
+        target.classList.add("merged");
 
-        // Remove tile1 from internal state and move its element into point2
-        this.tiles.delete(point1);
-        this.repositionTile(tile1, point2);
-        this.mergingTiles.set(point2, tile1);
+        this.tiles.delete(from);
+        this.repositionTile(subject, to);
+        this.mergingTiles.set(to, subject);
 
-        // Remove the tile1 element after the merge animation is complete
-        setTimeout(() => {
-            const mergingTilesIndex = this.mergingTiles.data.findIndex(
-                (tile) => tile === tile1
+        const cleanup = () => {
+            this.mergingTiles.deleteIndex(
+                this.mergingTiles.data.findIndex((tile) => tile === subject)
             );
-            this.mergingTiles.deleteIndex(mergingTilesIndex);
 
-            tile1.remove();
-            tile2.classList.remove("merged");
-        }, Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1);
+            subject.remove();
+            target.classList.remove("merged");
+        };
+
+        setTimeout(
+            cleanup,
+            Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1
+        );
     }
 
     public moveTile(from: Point, to: Point) {
