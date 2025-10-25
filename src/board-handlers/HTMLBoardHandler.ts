@@ -47,7 +47,7 @@ export class HTMLBoardHandler implements IBoardHandler {
 
         // Remove tile1 from internal state and move its element into point2
         this.tiles.delete(point1);
-        this.moveTileElement(tile1, point2);
+        this.repositionTile(tile1, point2);
         this.mergingTiles.set(point2, tile1);
 
         // Remove the tile1 element after the merge animation is complete
@@ -69,16 +69,16 @@ export class HTMLBoardHandler implements IBoardHandler {
             throw new Error(`No tile found at position (${from.x}, ${from.y})`);
         }
 
-        this.moveTileElement(tile, to);
+        this.repositionTile(tile, to);
         this.tiles.delete(from);
         this.tiles.set(to, tile);
 
         // If there is a tile being merged into this tile, move it as well
         const mergingTile = this.mergingTiles.get(from);
-        if (mergingTile) this.moveTileElement(mergingTile, to);
+        if (mergingTile) this.repositionTile(mergingTile, to);
     }
 
-    private moveTileElement(tile: HTMLElement, to: Point) {
+    private repositionTile(tile: HTMLElement, to: Point) {
         setDataAttributes(tile, { ...to });
     }
 
