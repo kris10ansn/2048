@@ -32,6 +32,15 @@ export class Matrix<T> {
     }
 
     private toIndex(point: Point) {
+        if (
+            point.x < 0 ||
+            point.x >= this.size ||
+            point.y < 0 ||
+            point.y >= this.size
+        ) {
+            throw new Error(`Point out of bounds: ${JSON.stringify(point)}`);
+        }
+
         return point.y * this.size + point.x;
     }
 }
