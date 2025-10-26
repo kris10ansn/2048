@@ -1,6 +1,6 @@
 export const setDataAttributes = (
     element: Element,
-    data: Record<string, any>
+    data: Record<string, any>,
 ) => {
     for (const [key, value] of Object.entries(data)) {
         element.setAttribute(`data-${key}`, value.toString());
@@ -11,7 +11,7 @@ export const createHtmlElement = <T extends keyof HTMLElementTagNameMap>(
     tag: T,
     attributes: Partial<HTMLElementTagNameMap[T]> & {
         data?: Record<string, any>;
-    }
+    },
 ): HTMLElementTagNameMap[T] => {
     const element = document.createElement(tag);
     const { data } = attributes;

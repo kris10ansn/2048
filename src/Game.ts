@@ -1,18 +1,18 @@
+import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
+import type { Direction } from "@/types/Direction";
+import type { Point } from "@/types/Point";
 import {
     createBoardIterator,
-    iterateFrom,
     isHorizontal,
+    iterateFrom,
 } from "@/util/boardIterators";
-import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
-import type { Point } from "@/types/Point";
-import type { Direction } from "@/types/Direction";
-import { addPoints, directionVectors, multPoint } from "@/util/points";
 import { Matrix } from "@/util/Matrix";
+import { addPoints, directionVectors, multPoint } from "@/util/points";
 
 export class Game {
     public constructor(
         private boardHandler: IBoardHandler,
-        private size: number
+        private size: number,
     ) {}
 
     public setup() {
@@ -100,7 +100,7 @@ export class Game {
             const point = { x, y };
             const nextPoint = addPoints(
                 point,
-                multPoint(directionVectors[direction], -1)
+                multPoint(directionVectors[direction], -1),
             );
 
             if (!Matrix.pointInBounds(nextPoint, this.size)) {

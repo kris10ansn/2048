@@ -1,13 +1,16 @@
-import { createHtmlElement, setDataAttributes } from "@/util/dom";
-import { Matrix } from "@/util/Matrix";
 import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
 import type { Point } from "@/types/Point";
+import { createHtmlElement, setDataAttributes } from "@/util/dom";
+import { Matrix } from "@/util/Matrix";
 
 export class HTMLBoardHandler implements IBoardHandler {
     private tiles: Matrix<HTMLElement>;
     private mergingTiles: Matrix<HTMLElement>;
 
-    public constructor(private root: Node, size: number) {
+    public constructor(
+        private root: Node,
+        size: number,
+    ) {
         this.tiles = new Matrix<HTMLElement>(size);
         this.mergingTiles = new Matrix<HTMLElement>(size);
     }
@@ -48,7 +51,7 @@ export class HTMLBoardHandler implements IBoardHandler {
 
         const cleanup = () => {
             this.mergingTiles.deleteIndex(
-                this.mergingTiles.data.findIndex((tile) => tile === subject)
+                this.mergingTiles.data.findIndex((tile) => tile === subject),
             );
 
             subject.remove();
@@ -57,7 +60,7 @@ export class HTMLBoardHandler implements IBoardHandler {
 
         setTimeout(
             cleanup,
-            Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1
+            Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1,
         );
     }
 

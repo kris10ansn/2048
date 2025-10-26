@@ -92,7 +92,8 @@ main {
 
                 z-index: 10;
 
-                animation: appear 0.2s ease forwards,
+                animation:
+                    appear 0.2s ease forwards,
                     merge #{$ENV_VITE_ANIMATION_MERGE_DURATION}ms ease forwards;
             }
         }

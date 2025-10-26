@@ -27,7 +27,7 @@ export const iterateFrom = (
     x: number,
     y: number,
     direction: Direction,
-    size: number
+    size: number,
 ) => {
     const reverse = shouldReverseIterate(direction);
 
