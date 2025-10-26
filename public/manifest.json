@@ -1,0 +1,22 @@
+{
+    "$schema": "https://json.schemastore.org/chrome-manifest",
+
+    "name": "2048",
+    "description": "A classic 2048 game implemented as a browser extension.",
+    "version": "1.0.0",
+
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "2048",
+        "default_icon": {
+            "32": "icon-32.png"
+        }
+    },
+
+    "icons": {
+        "128": "icon-128.png"
+    },
+
+    "offline_enabled": true,
+    "manifest_version": 3
+}
