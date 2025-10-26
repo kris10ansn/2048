@@ -1,4 +1,4 @@
-import { createHtmlElement, setDataAttributes } from "../dom";
+import { createHtmlElement, setDataAttributes } from "../util/dom";
 import { Matrix } from "../util/Matrix";
 import type { IBoardHandler } from "./IBoardHandler";
 import type { Point } from "../types/Point";
