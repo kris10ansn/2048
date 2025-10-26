@@ -19,7 +19,7 @@ export class HTMLBoardHandler implements IBoardHandler {
         const element = createHtmlElement("div", {
             className: "tile",
             textContent: value.toString(),
-            data: { x: point.x, y: point.y },
+            data: { x: point.x, y: point.y, value },
         });
 
         this.tiles.set(point, element);
@@ -85,7 +85,7 @@ export class HTMLBoardHandler implements IBoardHandler {
     }
 
     private getTileValue(tile: HTMLElement): number {
-        const value = parseInt(tile.textContent);
+        const value = parseInt(tile.getAttribute("data-value") ?? "-");
 
         if (isNaN(value)) {
             throw new Error(`Tile content is not a number ${tile.textContent}`);
@@ -96,5 +96,6 @@ export class HTMLBoardHandler implements IBoardHandler {
 
     private setTileValue(tile: HTMLElement, value: number) {
         tile.textContent = value.toString();
+        setDataAttributes(tile, { value });
     }
 }
