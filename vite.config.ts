@@ -4,6 +4,11 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), "");
 
     return {
+        resolve: {
+            alias: {
+                "@": "/src",
+            },
+        },
         css: {
             preprocessorOptions: {
                 scss: {
