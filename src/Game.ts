@@ -2,12 +2,12 @@ import {
     createBoardIterator,
     iterateFrom,
     isHorizontal,
-} from "./util/boardIterators";
-import type { IBoardHandler } from "./board-handlers/IBoardHandler";
-import type { Point } from "./types/Point";
-import type { Direction } from "./types/Direction";
-import { addPoints, directionVectors, multPoint } from "./util/points";
-import { Matrix } from "./util/Matrix";
+} from "@/util/boardIterators";
+import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
+import type { Point } from "@/types/Point";
+import type { Direction } from "@/types/Direction";
+import { addPoints, directionVectors, multPoint } from "@/util/points";
+import { Matrix } from "@/util/Matrix";
 
 export class Game {
     public constructor(

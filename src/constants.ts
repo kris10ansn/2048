@@ -1,4 +1,4 @@
-import type { Direction } from "./types/Direction";
+import type { Direction } from "@/types/Direction";
 
 const constants = {
     boardSize: 4,

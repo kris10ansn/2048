@@ -1,5 +1,5 @@
-import type { Direction } from "../types/Direction";
-import type { Point } from "../types/Point";
+import type { Direction } from "@/types/Direction";
+import type { Point } from "@/types/Point";
 
 export const directionVectors: Record<Direction, Point> = {
     left: { x: -1, y: 0 },

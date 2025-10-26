@@ -1,5 +1,5 @@
-import type { Direction } from "../types/Direction";
-import { range } from "./range";
+import type { Direction } from "@/types/Direction";
+import { range } from "@/util/range";
 
 export const shouldReverseIterate = (direction: Direction) =>
     direction === "right" || direction === "down";

@@ -1,7 +1,7 @@
-import { createHtmlElement, setDataAttributes } from "../util/dom";
-import { Matrix } from "../util/Matrix";
-import type { IBoardHandler } from "./IBoardHandler";
-import type { Point } from "../types/Point";
+import { createHtmlElement, setDataAttributes } from "@/util/dom";
+import { Matrix } from "@/util/Matrix";
+import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
+import type { Point } from "@/types/Point";
 
 export class HTMLBoardHandler implements IBoardHandler {
     private tiles: Matrix<HTMLElement>;

@@ -1,4 +1,4 @@
-import type { Point } from "../types/Point";
+import type { Point } from "@/types/Point";
 
 export class Matrix<T> {
     public readonly data: T[];

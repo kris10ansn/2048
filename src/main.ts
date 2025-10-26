@@ -1,10 +1,10 @@
 import "./style.scss";
 
-import constants from "./constants";
-import { HTMLBoardHandler } from "./board-handlers/HTMLBoardHandler";
-import { Game } from "./Game";
-import { match } from "./util/match";
-import type { Direction } from "./types/Direction";
+import constants from "@/constants";
+import { HTMLBoardHandler } from "@/board-handlers/HTMLBoardHandler";
+import { Game } from "@/Game";
+import { match } from "@/util/match";
+import type { Direction } from "@/types/Direction";
 
 const main = () => {
     const root = document.querySelector("div#board");
