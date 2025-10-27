@@ -222,6 +222,7 @@ main {
                 color: $color-text-light;
             }
             &[data-value="512"] {
+                background-color: $color-tile-512;
                 color: $color-text-light;
             }
             &[data-value="1024"] {
