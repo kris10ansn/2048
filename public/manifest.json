@@ -8,14 +8,10 @@
     "action": {
         "default_popup": "index.html",
         "default_title": "2048",
-        "default_icon": {
-            "32": "icon-32.png"
-        }
+        "default_icon": {}
     },
 
-    "icons": {
-        "128": "icon-128.png"
-    },
+    "icons": {},
 
     "offline_enabled": true,
     "manifest_version": 3
