@@ -81,6 +81,17 @@ export class HTMLBoardHandler implements IBoardHandler {
         if (mergingTile) this.repositionTile(mergingTile, to);
     }
 
+    public updateScore(score: number): void {
+        const element = document.getElementById("score")!;
+        element.textContent = score.toString();
+
+    }
+
+    public updateHighScore(highScore: number): void {
+        const element = document.getElementById("high-score")!;
+        element.textContent = highScore.toString();
+    }
+
     private repositionTile(tile: HTMLElement, to: Point) {
         setDataAttributes(tile, { ...to });
     }
