@@ -1,5 +1,31 @@
 @use "sass:math";
 
+$board-size: 400px;
+$board-margin: math.div($board-size, 40);
+$board-border-radius: math.div($board-size, 20);
+
+$shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+
+$color-background: #faf8ef;
+$color-board: #bbada0;
+
+$color-text-light: #f9f6f2;
+$color-text-dark: #776e65;
+$color-text-medium: #e4dfd6;
+
+$color-tile-2: #eee4da;
+$color-tile-4: #ede0c8;
+$color-tile-8: #f2b179;
+$color-tile-16: #f59563;
+$color-tile-32: #f67c5f;
+$color-tile-64: #f65e3b;
+$color-tile-128: #edcf72;
+$color-tile-256: #edcc61;
+$color-tile-512: #edc850;
+$color-tile-1024: #edc53f;
+$color-tile-2048: #edc22e;
+$color-tile-max: #3c3a32;
+
 :root,
 html,
 body {
@@ -8,6 +34,13 @@ body {
 
     margin: 0;
     padding: 0;
+
+    background-color: $color-background;
+
+    width: $board-size + $board-margin * 3;
+
+    display: flex;
+    flex-direction: column;
 }
 
 * {
@@ -16,17 +49,42 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-main {
-    width: 100%;
-    height: 100%;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    background-color: #faf8ef;
+    margin: $board-margin;
+
+    div.score-container {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+
+        padding: 0.5rem 1rem;
+        min-width: 8rem;
+
+        background-color: $color-board;
+        box-shadow: $shadow;
+        border-radius: 0.5rem;
+
+        div.score-title {
+            font-size: 1.2rem;
+            color: $color-text-medium;
+        }
+
+        div.score {
+            font-size: 2.4rem;
+            color: $color-text-light;
+        }
+    }
+}
+
+main {
+    margin: $board-margin;
 
     #board {
-        $board-size: 480px;
-        $board-border-radius: 24px;
-
-        $box-margin: 4px;
+        $box-margin: math.div($board-size, 100);
         $box-size: math.div($board-size, 4) - $box-margin * 2;
 
         width: $board-size + $box-margin * 2;
@@ -36,19 +94,8 @@ main {
 
         border-radius: $board-border-radius;
 
-        background-color: #bbada0;
-
-        .box,
-        .tile {
-            position: absolute;
-            width: $box-size;
-            height: $box-size;
-
-            background-color: #ddd;
-
-            border-radius: $board-border-radius;
-            margin: $box-margin;
-        }
+        background-color: $color-board;
+        box-shadow: $shadow;
 
         .tile {
             position: absolute;
@@ -70,12 +117,14 @@ main {
             width: $box-size;
             height: $box-size;
 
+            margin: $box-margin;
+
             display: flex;
             justify-content: center;
             align-items: center;
 
             font-weight: bold;
-            font-size: 3rem;
+            font-size: math.div($board-size, 14);
 
             &.merged {
                 @keyframes merge {
@@ -99,52 +148,50 @@ main {
 
             &[data-value="4096"],
             &[data-value] {
-                background-color: #3c3a32;
-                color: #f9f6f2;
+                background-color: $color-tile-max;
+                color: $color-text-light;
             }
             &[data-value="2"] {
-                background-color: #eee4da;
-                color: #776e65;
+                background-color: $color-tile-2;
+                color: $color-text-dark;
             }
             &[data-value="4"] {
-                background-color: #ede0c8;
-                color: #776e65;
+                background-color: $color-tile-4;
+                color: $color-text-dark;
             }
             &[data-value="8"] {
-                background-color: #f2b179;
-                color: #f9f6f2;
+                background-color: $color-tile-8;
+                color: $color-text-light;
             }
             &[data-value="16"] {
-                background-color: #f59563;
-                color: #f9f6f2;
+                background-color: $color-tile-16;
+                color: $color-text-light;
             }
             &[data-value="32"] {
-                background-color: #f67c5f;
-                color: #f9f6f2;
+                background-color: $color-tile-32;
+                color: $color-text-light;
             }
             &[data-value="64"] {
-                background-color: #f65e3b;
-                color: #f9f6f2;
+                background-color: $color-tile-64;
+                color: $color-text-light;
             }
             &[data-value="128"] {
-                background-color: #edcf72;
-                color: #f9f6f2;
+                background-color: $color-tile-128;
+                color: $color-text-light;
             }
             &[data-value="256"] {
-                background-color: #edcc61;
-                color: #f9f6f2;
+                color: $color-text-light;
             }
             &[data-value="512"] {
-                background-color: #edc850;
-                color: #f9f6f2;
+                color: $color-text-light;
             }
             &[data-value="1024"] {
-                background-color: #edc53f;
-                color: #f9f6f2;
+                background-color: $color-tile-1024;
+                color: $color-text-light;
             }
             &[data-value="2048"] {
-                background-color: #edc22e;
-                color: #f9f6f2;
+                background-color: $color-tile-2048;
+                color: $color-text-light;
             }
         }
 
