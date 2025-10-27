@@ -15,7 +15,10 @@ export function* iterate2d(iterator: () => Generator<number>) {
     }
 }
 
-export const createBoardIterator = (size: number, direction: Direction) => {
+export const createBoardIterator = (
+    size: number,
+    direction: Direction = "left",
+) => {
     const iterator = shouldReverseIterate(direction)
         ? range.bind(null, size - 1, 0, -1)
         : range.bind(null, 0, size - 1, 1);
