@@ -8,6 +8,7 @@ $shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 
 $color-background: #faf8ef;
 $color-board: #bbada0;
+$color-background-dark: #8f7a66;
 
 $color-text-light: #f9f6f2;
 $color-text-dark: #776e65;
@@ -52,30 +53,60 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
 
     margin: $board-margin;
 
-    div.score-container {
-        font-size: 2rem;
-        font-weight: bold;
-        text-align: center;
+    div.scores {
+        display: flex;
+        gap: 2rem;
 
-        padding: 0.5rem 1rem;
-        min-width: 8rem;
+        div.score-container {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
 
-        background-color: $color-board;
-        box-shadow: $shadow;
-        border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            min-width: 10rem;
 
-        div.score-title {
-            font-size: 1.2rem;
-            color: $color-text-medium;
+            background-color: $color-board;
+            box-shadow: $shadow;
+            border-radius: 0.5rem;
+
+            div.score-title {
+                font-size: 1.2rem;
+                color: $color-text-medium;
+            }
+
+            div.score {
+                font-size: 2.4rem;
+                color: $color-text-light;
+            }
         }
+    }
 
-        div.score {
-            font-size: 2.4rem;
+    div.buttons {
+        display: flex;
+        flex-direction: row;
+
+        button {
+            font-size: 1.6rem;
+            font-weight: bold;
+
+            padding: 0.5rem 1rem;
+            height: 100%;
+
+            background-color: $color-background-dark;
+            box-shadow: $shadow;
+            border: none;
+            border-radius: 0.5rem;
+
             color: $color-text-light;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darken($color-board, 5%);
+            }
         }
     }
 }
