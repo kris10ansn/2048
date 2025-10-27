@@ -42,7 +42,7 @@ export class Game {
     private addRandomTile() {
         const emptyTiles: Point[] = [];
 
-        const iterator = createBoardIterator(this.size, "right");
+        const iterator = createBoardIterator(this.size);
         for (const { x, y } of iterator()) {
             if (this.boardHandler.getTile({ x, y }) === null) {
                 emptyTiles.push({ x, y });
