@@ -27,6 +27,27 @@ $color-tile-1024: #edc53f;
 $color-tile-2048: #edc22e;
 $color-tile-max: #3c3a32;
 
+@keyframes merge-target {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 1.2;
+    }
+    100% {
+        scale: 1;
+    }
+}
+
+@keyframes appear {
+    from {
+        scale: 0;
+    }
+    to {
+        scale: 1;
+    }
+}
+
 :root,
 html,
 body {
@@ -131,15 +152,6 @@ main {
         .tile {
             position: absolute;
 
-            @keyframes appear {
-                from {
-                    scale: 0;
-                }
-                to {
-                    scale: 1;
-                }
-            }
-
             animation: appear 0.2s ease forwards;
             transition: all 0.2s ease;
 
@@ -157,24 +169,19 @@ main {
             font-weight: bold;
             font-size: math.div($board-size, 14);
 
-            &.merged {
-                @keyframes merge {
-                    0% {
-                        scale: 1;
-                    }
-                    50% {
-                        scale: 1.2;
-                    }
-                    100% {
-                        scale: 1;
-                    }
-                }
+            z-index: 5;
 
+            &.merge-target {
                 z-index: 10;
 
                 animation:
                     appear 0.2s ease forwards,
-                    merge #{$ENV_VITE_ANIMATION_MERGE_DURATION}ms ease forwards;
+                    merge-target #{$ENV_VITE_ANIMATION_MERGE_DURATION}ms ease
+                        forwards;
+            }
+
+            &.merge-subject {
+                z-index: 1;
             }
 
             &[data-value="4096"],

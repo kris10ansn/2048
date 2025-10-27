@@ -43,11 +43,12 @@ export class HTMLBoardHandler implements IBoardHandler {
         const sum = this.getTileValue(subject) + this.getTileValue(target);
         this.setTileValue(target, sum);
 
-        target.classList.add("merged");
+        target.classList.add("merge-target");
 
         this.tiles.delete(from);
         this.repositionTile(subject, to);
         this.mergingTiles.set(to, subject);
+        subject.classList.add("merge-subject");
 
         const cleanup = () => {
             this.mergingTiles.deleteIndex(
@@ -55,7 +56,7 @@ export class HTMLBoardHandler implements IBoardHandler {
             );
 
             subject.remove();
-            target.classList.remove("merged");
+            target.classList.remove("merge-target");
         };
 
         setTimeout(
