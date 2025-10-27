@@ -10,6 +10,9 @@ import { Matrix } from "@/util/Matrix";
 import { addPoints, directionVectors, multPoint } from "@/util/points";
 
 export class Game {
+    private score = 0;
+    private highScore = 0;
+
     public constructor(
         private boardHandler: IBoardHandler,
         private size: number,
@@ -116,8 +119,27 @@ export class Game {
 
             this.boardHandler.mergeTile(nextPoint, point);
             didMerge = true;
+            this.addScore(value + nextValue);
         }
 
         return didMerge;
+    }
+
+    public getScore(): number {
+        return this.score;
+    }
+
+    public setScore(score: number): void {
+        this.score = score;
+        this.boardHandler.updateScore(score);
+
+        if (this.score > this.highScore) {
+            this.highScore = score;
+            this.boardHandler.updateHighScore(this.highScore);
+        }
+    }
+
+    public addScore(amount: number): void {
+        this.setScore(this.getScore() + amount);
     }
 }
