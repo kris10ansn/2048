@@ -136,6 +136,7 @@ export class Game {
         if (this.score > this.highScore) {
             this.highScore = score;
             this.boardHandler.updateHighScore(this.highScore);
+            this.boardHandler.newHighScore();
         }
     }
 

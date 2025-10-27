@@ -57,21 +57,34 @@ header {
 
     margin: $board-margin;
 
-    div.scores {
+    #scores {
         display: flex;
-        gap: 2rem;
+
+        $score-container-gap: 2rem;
+        $score-container-width: 10rem;
+        $score-container-padding-x: 1rem;
+
+        gap: $score-container-gap;
+
+        width: $score-container-width * 2 + $score-container-padding-x * 2 +
+            $score-container-gap;
 
         div.score-container {
             font-size: 2rem;
             font-weight: bold;
             text-align: center;
 
-            padding: 0.5rem 1rem;
-            min-width: 10rem;
+            padding: 0.5rem $score-container-padding-x;
+            width: $score-container-width;
 
             background-color: $color-board;
             box-shadow: $shadow;
             border-radius: 0.5rem;
+
+            $transition-duration: 1s;
+            transition:
+                width $transition-duration,
+                opacity $transition-duration;
 
             div.score-title {
                 font-size: 1.2rem;
@@ -81,6 +94,21 @@ header {
             div.score {
                 font-size: 2.4rem;
                 color: $color-text-light;
+            }
+        }
+
+        position: relative;
+
+        &.new-highscore {
+            #highscore-container {
+                position: absolute;
+                width: calc(100% - #{$score-container-gap});
+                right: $score-container-gap;
+                background-color: $color-tile-64;
+            }
+
+            #score-container {
+                opacity: 0;
             }
         }
     }

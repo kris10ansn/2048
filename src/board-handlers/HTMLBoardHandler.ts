@@ -93,6 +93,11 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.animate(...constants.animations.bounce);
     }
 
+    public newHighScore() {
+        const element = document.getElementById("scores")!;
+        element.classList.add("new-highscore");
+    }
+
     private repositionTile(tile: HTMLElement, to: Point) {
         setDataAttributes(tile, { ...to });
     }
