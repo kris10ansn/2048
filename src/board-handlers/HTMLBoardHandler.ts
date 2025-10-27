@@ -2,19 +2,7 @@ import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
 import type { Point } from "@/types/Point";
 import { createHtmlElement, setDataAttributes } from "@/util/dom";
 import { Matrix } from "@/util/Matrix";
-
-const scoreBounceAnimation: [Keyframe[], KeyframeAnimationOptions] = [
-    [
-        { transform: "scale(1)" },
-        { transform: "scale(1.2)" },
-        { transform: "scale(1)" },
-    ],
-    {
-        duration: 500,
-        easing: "ease",
-        iterations: 1,
-    },
-];
+import constants from "../constants";
 
 export class HTMLBoardHandler implements IBoardHandler {
     private tiles: Matrix<HTMLElement>;
@@ -37,6 +25,8 @@ export class HTMLBoardHandler implements IBoardHandler {
 
         this.tiles.set(point, element);
         this.root.appendChild(element);
+
+        element.animate(...constants.animations.appear);
     }
 
     public getTile(point: Point) {
@@ -56,26 +46,21 @@ export class HTMLBoardHandler implements IBoardHandler {
         const sum = this.getTileValue(subject) + this.getTileValue(target);
         this.setTileValue(target, sum);
 
-        target.classList.add("merge-target");
-
         this.tiles.delete(from);
         this.repositionTile(subject, to);
         this.mergingTiles.set(to, subject);
-        subject.classList.add("merge-subject");
 
-        const cleanup = () => {
+        target.style.zIndex = "10";
+        subject.style.zIndex = "1";
+
+        target.animate(...constants.animations.bounce).finished.then(() => {
             this.mergingTiles.deleteIndex(
                 this.mergingTiles.data.findIndex((tile) => tile === subject),
             );
 
             subject.remove();
-            target.classList.remove("merge-target");
-        };
-
-        setTimeout(
-            cleanup,
-            Number(import.meta.env.VITE_ANIMATION_MERGE_DURATION) + 1,
-        );
+            target.style.zIndex = "";
+        });
     }
 
     public moveTile(from: Point, to: Point) {
@@ -98,14 +83,14 @@ export class HTMLBoardHandler implements IBoardHandler {
         const element = document.getElementById("score")!;
         element.textContent = score.toString();
 
-        element.animate(...scoreBounceAnimation);
+        element.animate(...constants.animations.bounce);
     }
 
     public updateHighScore(highScore: number): void {
         const element = document.getElementById("high-score")!;
         element.textContent = highScore.toString();
 
-        element.animate(...scoreBounceAnimation);
+        element.animate(...constants.animations.bounce);
     }
 
     private repositionTile(tile: HTMLElement, to: Point) {
