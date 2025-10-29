@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "sass:color";
 
 $board-size: 400px;
 $board-margin: math.div($board-size, 40);
@@ -133,7 +134,7 @@ header {
             cursor: pointer;
 
             &:hover {
-                background-color: darken($color-board, 5%);
+                background-color: color.adjust($color-board, $lightness: -5%);
             }
         }
     }
