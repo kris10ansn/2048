@@ -8,13 +8,52 @@ import {
 } from "@/util/boardIterators";
 import { Matrix } from "@/util/Matrix";
 import { addPoints, directionVectors, multPoint } from "@/util/points";
+import type { IStorageHandler } from "./storage-handlers/IStorageHandler";
+
+export type GameState = {
+    score: number;
+    highScore: number;
+    board: (number | null)[][];
+};
+
+export const loadState = async (
+    game: Game,
+    storageHandler: IStorageHandler<GameState>,
+) => {
+    const catchError = (error: Error) => {
+        console.error(error);
+        return null;
+    };
+
+    const score = await storageHandler.load("score").catch(catchError);
+    const highScore = await storageHandler.load("highScore").catch(catchError);
+    const board = await storageHandler.load("board").catch(catchError);
+
+    if (highScore !== null) {
+        game.setHighScore(highScore);
+    }
+
+    if (score !== null && board !== null) {
+        game.setScore(score);
+
+        for (let y = 0; y < board.length; y++) {
+            for (let x = 0; x < board.length; x++) {
+                const value = board[y][x];
+
+                if (value !== null) {
+                    game.boardHandler.addTile({ x, y }, value);
+                }
+            }
+        }
+    }
+};
 
 export class Game {
     private score = 0;
     private highScore = 0;
 
     public constructor(
-        private boardHandler: IBoardHandler,
+        public boardHandler: IBoardHandler,
         private size: number,
     ) {}
 
@@ -134,13 +173,17 @@ export class Game {
         this.boardHandler.updateScore(score);
 
         if (this.score > this.highScore) {
-            this.highScore = score;
-            this.boardHandler.updateHighScore(this.highScore);
+            this.setHighScore(score);
             this.boardHandler.newHighScore();
         }
     }
 
     public addScore(amount: number): void {
         this.setScore(this.getScore() + amount);
+    }
+
+    public setHighScore(highScore: number) {
+        this.highScore = highScore;
+        this.boardHandler.updateHighScore(this.highScore);
     }
 }
