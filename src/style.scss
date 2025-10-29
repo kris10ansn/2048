@@ -101,11 +101,27 @@ header {
         position: relative;
 
         &.new-highscore {
+            @keyframes pulsating {
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.8;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
             #highscore-container {
                 position: absolute;
                 width: calc(100% - #{$score-container-gap});
                 right: $score-container-gap;
                 background-color: $color-tile-64;
+
+                #high-score {
+                    animation: pulsating 2s infinite ease-in-out;
+                }
             }
 
             #score-container {
