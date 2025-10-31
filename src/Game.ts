@@ -212,7 +212,6 @@ export class Game {
 
         if (this.score > this.highScore) {
             this.setHighScore(score);
-            this.boardHandler.newHighScore();
             this.setIsNewHighScore(true);
         }
     }
@@ -236,5 +235,6 @@ export class Game {
 
     public setIsNewHighScore(isNewHighScore: boolean) {
         this.isNewHighScore = isNewHighScore;
+        if (isNewHighScore) this.boardHandler.newHighScore();
     }
 }
