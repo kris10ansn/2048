@@ -11,8 +11,8 @@ export class EventEmitter<Events extends string[]> {
 
     public addEventListener(
         type: Events[number],
-        callback: EventListenerOrEventListenerObject | null,
-        options?: AddEventListenerOptions | boolean,
+        callback: Parameters<typeof this.eventTarget.addEventListener>[1],
+        options?: Parameters<typeof this.eventTarget.addEventListener>[2],
     ): void {
         this.eventTarget.addEventListener(type, callback, options);
     }
@@ -23,8 +23,8 @@ export class EventEmitter<Events extends string[]> {
 
     public removeEventListener(
         type: Events[number],
-        callback: EventListenerOrEventListenerObject | null,
-        options?: EventListenerOptions | boolean,
+        callback: Parameters<typeof this.eventTarget.removeEventListener>[1],
+        options?: Parameters<typeof this.eventTarget.removeEventListener>[2],
     ): void {
         this.eventTarget.removeEventListener(type, callback, options);
     }
