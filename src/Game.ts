@@ -215,6 +215,10 @@ export class Game {
         this.setScore(this.getScore() + amount);
     }
 
+    public getHighScore(): number {
+        return this.highScore;
+    }
+
     public setHighScore(highScore: number) {
         this.highScore = highScore;
         this.boardHandler.updateHighScore(this.highScore);
