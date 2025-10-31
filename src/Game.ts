@@ -85,7 +85,7 @@ export class Game {
     private isNewHighScore = false;
 
     public constructor(
-        public boardHandler: IBoardHandler,
+        public readonly boardHandler: IBoardHandler,
         public readonly size: number,
     ) {}
 
