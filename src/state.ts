@@ -29,7 +29,9 @@ export const loadState = async (
         game.setIsNewHighScore(isNewHighScore, true);
     }
 
-    if (score !== null && board !== null) {
+    if (score === null || board === null) {
+        game.setup();
+    } else {
         game.setScore(score);
 
         for (let y = 0; y < board.length; y++) {
@@ -41,8 +43,6 @@ export const loadState = async (
                 }
             }
         }
-    } else {
-        game.setup();
     }
 };
 
