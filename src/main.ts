@@ -5,7 +5,7 @@ import constants from "@/constants";
 import { Game } from "@/Game";
 import type { Direction } from "@/types/Direction";
 import { match } from "@/util/match";
-import { loadState, saveState, type GameState } from "./state";
+import { loadGameState, saveGameState, type GameState } from "./state";
 import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
 
 const main = () => {
@@ -20,10 +20,10 @@ const main = () => {
     const game = new Game(board, constants.boardSize);
     const gameStorage = new LocalStorageHandler<GameState>();
 
-    loadState(game, gameStorage);
+    loadGameState(game, gameStorage);
 
     game.events.addEventListener("did-slide", () => {
-        saveState(game, gameStorage);
+        saveGameState(game, gameStorage);
     });
 
     window.addEventListener("keydown", (event) => {

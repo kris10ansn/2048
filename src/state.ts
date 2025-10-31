@@ -10,7 +10,7 @@ export type GameState = {
     board: (number | null)[][];
 };
 
-export const loadState = async (
+export const loadGameState = async (
     game: Game,
     storageHandler: IStorageHandler<GameState>,
 ) => {
@@ -46,7 +46,7 @@ export const loadState = async (
     }
 };
 
-export const saveState = (
+export const saveGameState = (
     game: Game,
     storageHandler: IStorageHandler<GameState>,
 ) => {
