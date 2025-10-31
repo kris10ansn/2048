@@ -39,7 +39,7 @@ export const loadState = async (
     }
 
     if (isNewHighScore !== null) {
-        game.setIsNewHighScore(isNewHighScore);
+        game.setIsNewHighScore(isNewHighScore, true);
     }
 
     if (score !== null && board !== null) {
@@ -233,8 +233,8 @@ export class Game {
         return this.isNewHighScore;
     }
 
-    public setIsNewHighScore(isNewHighScore: boolean) {
+    public setIsNewHighScore(isNewHighScore: boolean, noAnimate?: boolean) {
         this.isNewHighScore = isNewHighScore;
-        if (isNewHighScore) this.boardHandler.newHighScore();
+        if (isNewHighScore) this.boardHandler.newHighScore(noAnimate);
     }
 }

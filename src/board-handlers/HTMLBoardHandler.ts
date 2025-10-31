@@ -93,9 +93,11 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.animate(...constants.animations.bounce);
     }
 
-    public newHighScore() {
+    public newHighScore(noAnimate?: boolean) {
         const element = document.getElementById("scores")!;
         element.classList.add("new-highscore");
+
+        if (noAnimate) element.classList.add("no-animate");
     }
 
     private repositionTile(tile: HTMLElement, to: Point) {

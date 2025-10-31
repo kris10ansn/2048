@@ -8,5 +8,5 @@ export interface IBoardHandler {
 
     updateScore(score: number): void;
     updateHighScore(highScore: number): void;
-    newHighScore(): void;
+    newHighScore(noAnimate?: boolean): void;
 }
