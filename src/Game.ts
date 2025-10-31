@@ -9,6 +9,7 @@ import {
 import { Matrix } from "@/util/Matrix";
 import { addPoints, directionVectors, multPoint } from "@/util/points";
 import type { IStorageHandler } from "./storage-handlers/IStorageHandler";
+import { EventEmitter, EventEmitterEvent } from "./util/EventEmitter";
 
 export type GameState = {
     score: number;
@@ -80,6 +81,8 @@ export const saveState = (
 };
 
 export class Game {
+    public readonly events = new EventEmitter<["did-slide"]>();
+
     private score = 0;
     private highScore = 0;
     private isNewHighScore = false;
@@ -108,6 +111,9 @@ export class Game {
 
         // Add a new random tile
         this.addRandomTile();
+
+        // Dispatch slide event
+        this.events.dispatchEvent(new EventEmitterEvent("did-slide"));
     }
 
     private addRandomTile() {
