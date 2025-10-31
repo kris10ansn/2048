@@ -2,9 +2,12 @@ import "./style.scss";
 
 import { HTMLBoardHandler } from "@/board-handlers/HTMLBoardHandler";
 import constants from "@/constants";
-import { Game } from "@/Game";
+import type { GameState } from "@/Game";
+import { Game, loadState, saveState } from "@/Game";
 import type { Direction } from "@/types/Direction";
 import { match } from "@/util/match";
+import { DebugStorageHandler } from "./storage-handlers/DebugStorageHandler";
+import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
 
 const main = () => {
     const root = document.querySelector("div#board");
@@ -16,12 +19,14 @@ const main = () => {
     const board = new HTMLBoardHandler(root, constants.boardSize);
 
     const game = new Game(board, constants.boardSize);
+    const gameStorage = new LocalStorageHandler<GameState>();
+    const debugStorage = new DebugStorageHandler<GameState>();
 
-    if (import.meta.env.DEV) {
-        import("./dev/demo").then((module) => module.runDemo(board, game));
-    } else {
-        game.setup();
-    }
+    loadState(game, gameStorage);
+
+    game.events.addEventListener("did-slide", () => {
+        saveState(game, debugStorage);
+    });
 
     window.addEventListener("keydown", (event) => {
         const direction = match<string, Direction>(event.key.toLowerCase(), [
