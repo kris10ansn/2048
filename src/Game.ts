@@ -58,6 +58,27 @@ export const loadState = async (
     }
 };
 
+export const saveState = (
+    game: Game,
+    storageHandler: IStorageHandler<GameState>,
+) => {
+    storageHandler.save("score", game.getScore());
+    storageHandler.save("highScore", game.getHighScore());
+    storageHandler.save("isNewHighScore", game.getIsNewHighScore());
+
+    const board: (number | null)[][] = [];
+
+    for (const { x, y } of createBoardIterator(game.size)()) {
+        if (!(y in board)) {
+            board[y] = [];
+        }
+
+        board[y][x] = game.boardHandler.getTile({ x, y });
+    }
+
+    storageHandler.save("board", board);
+};
+
 export class Game {
     private score = 0;
     private highScore = 0;
@@ -65,7 +86,7 @@ export class Game {
 
     public constructor(
         public boardHandler: IBoardHandler,
-        private size: number,
+        public readonly size: number,
     ) {}
 
     public setup() {
