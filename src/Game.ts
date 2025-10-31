@@ -13,24 +13,32 @@ import type { IStorageHandler } from "./storage-handlers/IStorageHandler";
 export type GameState = {
     score: number;
     highScore: number;
+    isNewHighScore: boolean;
     board: (number | null)[][];
+};
+
+const logError = (error: Error) => {
+    console.error(error);
+    return null;
 };
 
 export const loadState = async (
     game: Game,
     storageHandler: IStorageHandler<GameState>,
 ) => {
-    const catchError = (error: Error) => {
-        console.error(error);
-        return null;
-    };
-
-    const score = await storageHandler.load("score").catch(catchError);
-    const highScore = await storageHandler.load("highScore").catch(catchError);
-    const board = await storageHandler.load("board").catch(catchError);
+    const score = await storageHandler.load("score").catch(logError);
+    const highScore = await storageHandler.load("highScore").catch(logError);
+    const board = await storageHandler.load("board").catch(logError);
+    const isNewHighScore = await storageHandler
+        .load("isNewHighScore")
+        .catch(logError);
 
     if (highScore !== null) {
         game.setHighScore(highScore);
+    }
+
+    if (isNewHighScore !== null) {
+        game.setIsNewHighScore(isNewHighScore);
     }
 
     if (score !== null && board !== null) {
@@ -45,6 +53,8 @@ export const loadState = async (
                 }
             }
         }
+    } else {
+        game.setup();
     }
 };
 
