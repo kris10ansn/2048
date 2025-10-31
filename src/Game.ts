@@ -51,6 +51,7 @@ export const loadState = async (
 export class Game {
     private score = 0;
     private highScore = 0;
+    private isNewHighScore = false;
 
     public constructor(
         public boardHandler: IBoardHandler,
@@ -175,6 +176,7 @@ export class Game {
         if (this.score > this.highScore) {
             this.setHighScore(score);
             this.boardHandler.newHighScore();
+            this.setIsNewHighScore(true);
         }
     }
 
@@ -185,5 +187,13 @@ export class Game {
     public setHighScore(highScore: number) {
         this.highScore = highScore;
         this.boardHandler.updateHighScore(this.highScore);
+    }
+
+    public getIsNewHighScore(): boolean {
+        return this.isNewHighScore;
+    }
+
+    public setIsNewHighScore(isNewHighScore: boolean) {
+        this.isNewHighScore = isNewHighScore;
     }
 }
