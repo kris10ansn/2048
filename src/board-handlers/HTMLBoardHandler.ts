@@ -93,7 +93,7 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.animate(...constants.animations.bounce);
     }
 
-    public newHighScore(noAnimate?: boolean) {
+    public highlightNewHighScore(noAnimate?: boolean) {
         const element = document.getElementById("scores")!;
 
         if (noAnimate) element.classList.add("no-animate");
