@@ -8,77 +8,7 @@ import {
 } from "@/util/boardIterators";
 import { Matrix } from "@/util/Matrix";
 import { addPoints, directionVectors, multPoint } from "@/util/points";
-import type { IStorageHandler } from "./storage-handlers/IStorageHandler";
 import { EventEmitter, EventEmitterEvent } from "./util/EventEmitter";
-
-export type GameState = {
-    score: number;
-    highScore: number;
-    isNewHighScore: boolean;
-    board: (number | null)[][];
-};
-
-const logError = (error: Error) => {
-    console.error(error);
-    return null;
-};
-
-export const loadState = async (
-    game: Game,
-    storageHandler: IStorageHandler<GameState>,
-) => {
-    const score = await storageHandler.load("score").catch(logError);
-    const highScore = await storageHandler.load("highScore").catch(logError);
-    const board = await storageHandler.load("board").catch(logError);
-    const isNewHighScore = await storageHandler
-        .load("isNewHighScore")
-        .catch(logError);
-
-    if (highScore !== null) {
-        game.setHighScore(highScore);
-    }
-
-    if (isNewHighScore !== null) {
-        game.setIsNewHighScore(isNewHighScore, true);
-    }
-
-    if (score !== null && board !== null) {
-        game.setScore(score);
-
-        for (let y = 0; y < board.length; y++) {
-            for (let x = 0; x < board.length; x++) {
-                const value = board[y][x];
-
-                if (value !== null) {
-                    game.boardHandler.addTile({ x, y }, value);
-                }
-            }
-        }
-    } else {
-        game.setup();
-    }
-};
-
-export const saveState = (
-    game: Game,
-    storageHandler: IStorageHandler<GameState>,
-) => {
-    storageHandler.save("score", game.getScore());
-    storageHandler.save("highScore", game.getHighScore());
-    storageHandler.save("isNewHighScore", game.getIsNewHighScore());
-
-    const board: (number | null)[][] = [];
-
-    for (const { x, y } of createBoardIterator(game.size)()) {
-        if (!(y in board)) {
-            board[y] = [];
-        }
-
-        board[y][x] = game.boardHandler.getTile({ x, y });
-    }
-
-    storageHandler.save("board", board);
-};
 
 export class Game {
     public readonly events = new EventEmitter<["did-slide"]>();
