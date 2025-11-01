@@ -3,6 +3,7 @@ import type { Direction } from "@/types/Direction";
 const constants = {
     numbers: {
         boardSize: 4,
+        tileTransitionDuration: import.meta.env.VITE_TILE_TRANSITION_DURATION,
     },
 
     keyMap: {

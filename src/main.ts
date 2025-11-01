@@ -5,9 +5,15 @@ import constants from "@/constants";
 import { Game } from "@/Game";
 import type { Direction } from "@/types/Direction";
 import { match } from "@/util/match";
-import { type GameState, loadGameState, saveGameState } from "./state";
+import {
+    type GameState,
+    loadGameState,
+    removeBoardState,
+    saveGameState,
+} from "./state";
 import { ChromeStorageHandler } from "./storage-handlers/ChromeStorageHandler";
 import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
+import { wait } from "./util/wait";
 
 const main = () => {
     const root = document.querySelector("div#board");
@@ -29,6 +35,13 @@ const main = () => {
 
     game.events.addEventListener("did-slide", () => {
         saveGameState(game, gameStorage);
+    });
+
+    game.events.addEventListener("did-lose", async () => {
+        await wait(constants.numbers.tileTransitionDuration);
+
+        removeBoardState(gameStorage);
+        alert("Game over!");
     });
 
     buttonNewGame.addEventListener("click", () => {

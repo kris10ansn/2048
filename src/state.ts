@@ -66,3 +66,11 @@ export const saveGameState = (
 
     storageHandler.save("board", board);
 };
+
+export const removeBoardState = (
+    storageHandler: IStorageHandler<GameState>,
+) => {
+    storageHandler.remove("score");
+    storageHandler.remove("isNewHighScore");
+    storageHandler.remove("board");
+};
