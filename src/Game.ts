@@ -11,7 +11,7 @@ import { addPoints, directionVectors, multPoint } from "@/util/points";
 import { EventEmitter, EventEmitterEvent } from "./util/EventEmitter";
 
 export class Game {
-    public readonly events = new EventEmitter<["did-slide"]>();
+    public readonly events = new EventEmitter<["did-slide", "did-lose"]>();
 
     private score = 0;
     private highScore = 0;
@@ -57,6 +57,10 @@ export class Game {
 
         // Dispatch slide event
         this.events.dispatchEvent(new EventEmitterEvent("did-slide"));
+
+        if (this.isOver()) {
+            this.events.dispatchEvent(new EventEmitterEvent("did-lose"));
+        }
     }
 
     private addRandomTile() {
@@ -77,6 +81,42 @@ export class Game {
         const value = Math.random() < 0.9 ? 2 : 4;
 
         this.boardHandler.addTile(emptyTiles[randomIndex], value);
+    }
+
+    private isOver(): boolean {
+        const iterator = createBoardIterator(this.size);
+
+        for (const point of iterator()) {
+            const value = this.boardHandler.getTile(point);
+
+            // Return false if any tile is empty
+            if (value === null) {
+                return false;
+            }
+
+            const [left, right, up, down] = [
+                addPoints(point, directionVectors.left),
+                addPoints(point, directionVectors.right),
+                addPoints(point, directionVectors.up),
+                addPoints(point, directionVectors.down),
+            ];
+
+            // Return false if there are available merges
+            if (
+                (Matrix.pointInBounds(left, this.size) &&
+                    this.boardHandler.getTile(left) === value) ||
+                (Matrix.pointInBounds(right, this.size) &&
+                    this.boardHandler.getTile(right) === value) ||
+                (Matrix.pointInBounds(up, this.size) &&
+                    this.boardHandler.getTile(up) === value) ||
+                (Matrix.pointInBounds(down, this.size) &&
+                    this.boardHandler.getTile(down) === value)
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private shiftTiles(direction: Direction): boolean {
