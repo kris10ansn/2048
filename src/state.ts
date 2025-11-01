@@ -26,7 +26,7 @@ export const loadGameState = async (
     }
 
     if (isNewHighScore !== null) {
-        game.setIsNewHighScore(isNewHighScore, true);
+        game.setIsNewHighScore(isNewHighScore, { noAnimate: true });
     }
 
     if (score === null || board === null) {

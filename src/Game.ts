@@ -1,4 +1,7 @@
-import type { IBoardHandler } from "@/board-handlers/IBoardHandler";
+import type {
+    HighlightNewHighScoreOptions,
+    IBoardHandler,
+} from "@/board-handlers/IBoardHandler";
 import type { Direction } from "@/types/Direction";
 import type { Point } from "@/types/Point";
 import {
@@ -227,11 +230,14 @@ export class Game {
         return this.isNewHighScore;
     }
 
-    public setIsNewHighScore(isNewHighScore: boolean, noAnimate?: boolean) {
+    public setIsNewHighScore(
+        isNewHighScore: boolean,
+        options?: HighlightNewHighScoreOptions,
+    ) {
         this.isNewHighScore = isNewHighScore;
 
         isNewHighScore
-            ? this.boardHandler.highlightNewHighScore(noAnimate)
+            ? this.boardHandler.highlightNewHighScore(options)
             : this.boardHandler.unHighlightNewHighScore();
     }
 }

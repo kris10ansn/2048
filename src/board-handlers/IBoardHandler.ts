@@ -1,5 +1,9 @@
 import type { Point } from "@/types/Point";
 
+export type HighlightNewHighScoreOptions = Partial<{
+    noAnimate: boolean;
+}>;
+
 export interface IBoardHandler {
     addTile(point: Point, value: number): void;
     removeTile(point: Point): void;
@@ -10,7 +14,7 @@ export interface IBoardHandler {
     updateScore(score: number): void;
     updateHighScore(highScore: number): void;
 
-    highlightNewHighScore(noAnimate?: boolean): void;
+    highlightNewHighScore(options?: HighlightNewHighScoreOptions): void;
     unHighlightNewHighScore(): void;
 
     lose(): void;
