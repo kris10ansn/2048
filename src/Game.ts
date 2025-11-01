@@ -27,6 +27,19 @@ export class Game {
         this.addRandomTile();
     }
 
+    public reset() {
+        const iterator = createBoardIterator(this.size);
+
+        for (const point of iterator()) {
+            this.boardHandler.removeTile(point);
+        }
+
+        this.setScore(0);
+        this.setIsNewHighScore(false);
+
+        this.setup();
+    }
+
     public slide(direction: Direction) {
         const didShift = this.shiftTiles(direction);
         const didMerge = this.doMerges(direction);

@@ -11,9 +11,11 @@ import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
 
 const main = () => {
     const root = document.querySelector("div#board");
+    const buttonNewGame = document.querySelector("#new-game-button");
 
-    if (root === null) {
-        throw new Error("Root element not found!");
+    if (root === null || buttonNewGame === null) {
+        const elements = { root, buttonNewGame };
+        throw new Error("Missing elements! " + JSON.stringify(elements));
     }
 
     const board = new HTMLBoardHandler(root, constants.boardSize);
@@ -26,6 +28,11 @@ const main = () => {
     loadGameState(game, gameStorage);
 
     game.events.addEventListener("did-slide", () => {
+        saveGameState(game, gameStorage);
+    });
+
+    buttonNewGame.addEventListener("click", () => {
+        game.reset();
         saveGameState(game, gameStorage);
     });
 
