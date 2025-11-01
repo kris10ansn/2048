@@ -14,12 +14,12 @@ export const loadGameState = async (
     game: Game,
     storageHandler: IStorageHandler<GameState>,
 ) => {
-    const score = await storageHandler.load("score").catch(logError);
-    const highScore = await storageHandler.load("highScore").catch(logError);
-    const board = await storageHandler.load("board").catch(logError);
-    const isNewHighScore = await storageHandler
-        .load("isNewHighScore")
-        .catch(logError);
+    const [score, highScore, board, isNewHighScore] = await Promise.all([
+        storageHandler.load("score").catch(logError),
+        storageHandler.load("highScore").catch(logError),
+        storageHandler.load("board").catch(logError),
+        storageHandler.load("isNewHighScore").catch(logError),
+    ]);
 
     if (highScore !== null) {
         game.setHighScore(highScore);
