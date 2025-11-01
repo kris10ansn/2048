@@ -4,6 +4,10 @@ export type HighlightNewHighScoreOptions = Partial<{
     noAnimate: boolean;
 }>;
 
+export const defaultHNHSOptions: HighlightNewHighScoreOptions = {
+    noAnimate: false,
+};
+
 export interface IBoardHandler {
     addTile(point: Point, value: number): void;
     removeTile(point: Point): void;

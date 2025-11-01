@@ -1,6 +1,7 @@
-import type {
-    HighlightNewHighScoreOptions,
-    IBoardHandler,
+import {
+    defaultHNHSOptions,
+    type HighlightNewHighScoreOptions,
+    type IBoardHandler,
 } from "@/board-handlers/IBoardHandler";
 import type { Point } from "@/types/Point";
 import { createHtmlElement, setDataAttributes } from "@/util/dom";
@@ -117,9 +118,8 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.animate(...constants.animations.bounce);
     }
 
-    public highlightNewHighScore(
-        { noAnimate }: HighlightNewHighScoreOptions = { noAnimate: false },
-    ) {
+    public highlightNewHighScore(options: HighlightNewHighScoreOptions = {}) {
+        const { noAnimate } = Object.assign(defaultHNHSOptions, options);
         const element = document.getElementById("scores")!;
 
         if (noAnimate) element.classList.add("no-animate");
