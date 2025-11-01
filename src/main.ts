@@ -13,6 +13,7 @@ import {
 } from "./state";
 import { ChromeStorageHandler } from "./storage-handlers/ChromeStorageHandler";
 import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
+import { ObfuscatedStorageHandler } from "./storage-handlers/ObfuscatedStorageHandler";
 
 const main = () => {
     const root = document.querySelector("div#board");
@@ -26,9 +27,15 @@ const main = () => {
     const board = new HTMLBoardHandler(root, constants.numbers.boardSize);
 
     const game = new Game(board, constants.numbers.boardSize);
-    const gameStorage = ChromeStorageHandler.isAvailable()
-        ? new ChromeStorageHandler<GameState>("sync")
-        : new LocalStorageHandler<GameState>();
+    const gameStorage = new ObfuscatedStorageHandler<GameState>(
+        ChromeStorageHandler.isAvailable()
+            ? new ChromeStorageHandler<Record<string, string>>("sync")
+            : new LocalStorageHandler<Record<string, string>>(),
+        {
+            obfuscate: (data) => btoa(data),
+            deObfuscate: (data) => atob(data),
+        },
+    );
 
     loadGameState(game, gameStorage);
 
