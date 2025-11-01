@@ -16,6 +16,7 @@ export class Game {
     private score = 0;
     private highScore = 0;
     private isNewHighScore = false;
+    private lost = false;
 
     public constructor(
         public readonly boardHandler: IBoardHandler,
@@ -41,6 +42,10 @@ export class Game {
     }
 
     public slide(direction: Direction) {
+        if (this.lost) {
+            return;
+        }
+
         const didShift = this.shiftTiles(direction);
         const didMerge = this.doMerges(direction);
 
@@ -59,6 +64,7 @@ export class Game {
         this.events.dispatchEvent(new EventEmitterEvent("did-slide"));
 
         if (this.isOver()) {
+            this.lost = true;
             this.events.dispatchEvent(new EventEmitterEvent("did-lose"));
         }
     }
