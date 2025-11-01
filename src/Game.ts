@@ -37,6 +37,7 @@ export class Game {
 
         this.setScore(0);
         this.setIsNewHighScore(false);
+        this.unLose();
 
         this.setup();
     }
@@ -64,9 +65,19 @@ export class Game {
         this.events.dispatchEvent(new EventEmitterEvent("did-slide"));
 
         if (this.isOver()) {
-            this.lost = true;
-            this.events.dispatchEvent(new EventEmitterEvent("did-lose"));
+            this.lose();
         }
+    }
+
+    private lose() {
+        this.lost = true;
+        this.boardHandler.lose();
+        this.events.dispatchEvent(new EventEmitterEvent("did-lose"));
+    }
+
+    private unLose() {
+        this.lost = false;
+        this.boardHandler.unLose();
     }
 
     private addRandomTile() {

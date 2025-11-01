@@ -9,7 +9,7 @@ export class HTMLBoardHandler implements IBoardHandler {
     private mergingTiles: Matrix<HTMLElement>;
 
     public constructor(
-        private root: Node,
+        private root: Element,
         size: number,
     ) {
         this.tiles = new Matrix<HTMLElement>(size);
@@ -90,6 +90,14 @@ export class HTMLBoardHandler implements IBoardHandler {
         // If there is a tile being merged into this tile, move it as well
         const mergingTile = this.mergingTiles.get(from);
         if (mergingTile) this.repositionTile(mergingTile, to);
+    }
+
+    public lose() {
+        this.root.classList.add("game-over");
+    }
+
+    public unLose() {
+        this.root.classList.remove("game-over");
     }
 
     public updateScore(score: number): void {

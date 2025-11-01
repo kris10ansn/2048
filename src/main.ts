@@ -13,7 +13,6 @@ import {
 } from "./state";
 import { ChromeStorageHandler } from "./storage-handlers/ChromeStorageHandler";
 import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
-import { wait } from "./util/wait";
 
 const main = () => {
     const root = document.querySelector("div#board");
@@ -38,10 +37,7 @@ const main = () => {
     });
 
     game.events.addEventListener("did-lose", async () => {
-        await wait(constants.numbers.tileTransitionDuration);
-
         removeBoardState(gameStorage);
-        alert("Game over!");
     });
 
     buttonNewGame.addEventListener("click", () => {
