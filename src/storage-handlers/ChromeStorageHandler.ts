@@ -17,7 +17,7 @@ export class ChromeStorageHandler<T> implements IStorageHandler<T> {
     public async load<K extends keyof T>(key: K): Promise<T[K] | null> {
         return this.getStorageArea()
             .get<T>([key])
-            .then((data) => data[key]);
+            .then((data) => data[key] ?? null);
     }
 
     public async remove<K extends keyof T>(key: K): Promise<void> {
