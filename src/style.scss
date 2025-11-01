@@ -70,11 +70,13 @@ header {
 
     margin: $board-margin;
 
+    $border-radius-block: 0.5rem;
+
     #scores {
         display: flex;
 
         $score-container-gap: 2rem;
-        $score-container-width: 10rem;
+        $score-container-width: 8rem;
         $score-container-padding-x: 1rem;
 
         gap: $score-container-gap;
@@ -106,7 +108,7 @@ header {
 
             background-color: $color-board;
             box-shadow: $shadow;
-            border-radius: 0.5rem;
+            border-radius: $border-radius-block;
 
             div.score-title {
                 font-size: 1.2rem;
@@ -133,9 +135,25 @@ header {
         }
     }
 
-    div.buttons {
+    .buttons {
         display: flex;
         flex-direction: row;
+
+        align-items: center;
+
+        #settings-button {
+            height: 5rem;
+            padding: 0.5rem;
+
+            margin: 0 0.75rem;
+
+            border-radius: $border-radius-block;
+
+            &:hover {
+                background-color: rgba($color-board, 0.5);
+                cursor: pointer;
+            }
+        }
 
         button {
             font-size: 1.6rem;
@@ -147,7 +165,7 @@ header {
             background-color: $color-background-dark;
             box-shadow: $shadow;
             border: none;
-            border-radius: 0.5rem;
+            border-radius: $border-radius-block;
 
             color: $color-text-light;
             cursor: pointer;
