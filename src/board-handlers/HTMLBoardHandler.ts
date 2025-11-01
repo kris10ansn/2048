@@ -29,6 +29,19 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.animate(...constants.animations.appear);
     }
 
+    public removeTile(point: Point): void {
+        const tile = this.tiles.get(point);
+
+        if (!tile) {
+            return;
+        }
+
+        this.tiles.delete(point);
+        tile.animate(...constants.animations.disappear).finished.then(() => {
+            tile.remove();
+        });
+    }
+
     public getTile(point: Point) {
         const tile = this.tiles.get(point);
         return tile ? this.getTileValue(tile) : null;
