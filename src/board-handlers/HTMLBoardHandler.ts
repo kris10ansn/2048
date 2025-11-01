@@ -119,7 +119,7 @@ export class HTMLBoardHandler implements IBoardHandler {
     }
 
     public highlightNewHighScore(options: HighlightNewHighScoreOptions = {}) {
-        const { noAnimate } = Object.assign(defaultHNHSOptions, options);
+        const { noAnimate } = Object.assign({}, defaultHNHSOptions, options);
         const element = document.getElementById("scores")!;
 
         if (noAnimate) element.classList.add("no-animate");
