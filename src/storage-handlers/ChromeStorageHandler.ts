@@ -1,6 +1,7 @@
 import type { IStorageHandler } from "./IStorageHandler";
 
 // https://developer.chrome.com/docs/extensions/reference/api/storage
+
 export type ChromeStorageAreaName = "local" | "sync" | "managed" | "session";
 
 export class ChromeStorageHandler<T> implements IStorageHandler<T> {
@@ -9,6 +10,7 @@ export class ChromeStorageHandler<T> implements IStorageHandler<T> {
     public async save<K extends keyof T>(key: K, data: T[K]): Promise<void> {
         // Casting to Partial<T> as TypeScript doesn't realize that they match
         const update = { [key]: data } as unknown as Partial<T>;
+
         return this.getStorageArea().set<T>(update);
     }
 
