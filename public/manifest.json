@@ -13,6 +13,8 @@
 
     "icons": {},
 
+    "permissions": ["storage"],
+
     "offline_enabled": true,
     "manifest_version": 3
 }
