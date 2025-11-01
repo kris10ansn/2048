@@ -94,21 +94,15 @@ export class Game {
                 return false;
             }
 
-            const [left, right, up, down] = [
-                addPoints(point, directionVectors.left),
+            const [right, down] = [
                 addPoints(point, directionVectors.right),
-                addPoints(point, directionVectors.up),
                 addPoints(point, directionVectors.down),
             ];
 
             // Return false if there are available merges
             if (
-                (Matrix.pointInBounds(left, this.size) &&
-                    this.boardHandler.getTile(left) === value) ||
                 (Matrix.pointInBounds(right, this.size) &&
                     this.boardHandler.getTile(right) === value) ||
-                (Matrix.pointInBounds(up, this.size) &&
-                    this.boardHandler.getTile(up) === value) ||
                 (Matrix.pointInBounds(down, this.size) &&
                     this.boardHandler.getTile(down) === value)
             ) {
