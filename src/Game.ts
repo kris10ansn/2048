@@ -165,6 +165,9 @@ export class Game {
 
     public setIsNewHighScore(isNewHighScore: boolean, noAnimate?: boolean) {
         this.isNewHighScore = isNewHighScore;
-        if (isNewHighScore) this.boardHandler.highlightNewHighScore(noAnimate);
+
+        isNewHighScore
+            ? this.boardHandler.highlightNewHighScore(noAnimate)
+            : this.boardHandler.unHighlightNewHighScore();
     }
 }

@@ -114,6 +114,11 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.classList.add("new-highscore");
     }
 
+    public unHighlightNewHighScore(): void {
+        const element = document.getElementById("scores")!;
+        element.classList.remove("new-highscore");
+    }
+
     private repositionTile(tile: HTMLElement, to: Point) {
         setDataAttributes(tile, { ...to });
     }
