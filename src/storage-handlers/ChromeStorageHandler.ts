@@ -1,4 +1,3 @@
-import "chrome";
 import type { IStorageHandler } from "./IStorageHandler";
 
 // https://developer.chrome.com/docs/extensions/reference/api/storage
