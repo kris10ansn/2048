@@ -18,9 +18,9 @@ const main = () => {
         throw new Error("Missing elements! " + JSON.stringify(elements));
     }
 
-    const board = new HTMLBoardHandler(root, constants.boardSize);
+    const board = new HTMLBoardHandler(root, constants.numbers.boardSize);
 
-    const game = new Game(board, constants.boardSize);
+    const game = new Game(board, constants.numbers.boardSize);
     const gameStorage = ChromeStorageHandler.isAvailable()
         ? new ChromeStorageHandler<GameState>("sync")
         : new LocalStorageHandler<GameState>();

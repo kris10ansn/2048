@@ -1,7 +1,9 @@
 import type { Direction } from "@/types/Direction";
 
 const constants = {
-    boardSize: 4,
+    numbers: {
+        boardSize: 4,
+    },
 
     keyMap: {
         left: ["a", "arrowleft", "h"],
