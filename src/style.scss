@@ -28,6 +28,18 @@ $color-tile-1024: #edc53f;
 $color-tile-2048: #edc22e;
 $color-tile-max: #3c3a32;
 
+@keyframes pulsating {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 :root,
 html,
 body {
@@ -70,7 +82,21 @@ header {
         width: $score-container-width * 2 + $score-container-padding-x * 2 +
             $score-container-gap;
 
-        div.score-container {
+        position: relative;
+
+        &:not(.no-animate) {
+            .score-container {
+                $transition-duration: 1s;
+                transition:
+                    width $transition-duration,
+                    opacity $transition-duration;
+            }
+            #high-score {
+                animation: pulsating 2s infinite ease-in-out;
+            }
+        }
+
+        .score-container {
             font-size: 2rem;
             font-weight: bold;
             text-align: center;
@@ -81,11 +107,6 @@ header {
             background-color: $color-board;
             box-shadow: $shadow;
             border-radius: 0.5rem;
-
-            $transition-duration: 1s;
-            transition:
-                width $transition-duration,
-                opacity $transition-duration;
 
             div.score-title {
                 font-size: 1.2rem;
@@ -98,25 +119,7 @@ header {
             }
         }
 
-        position: relative;
-
         &.new-highscore {
-            @keyframes pulsating {
-                0% {
-                    opacity: 1;
-                }
-                50% {
-                    opacity: 0.8;
-                }
-                100% {
-                    opacity: 1;
-                }
-            }
-
-            &:not(.no-animate) #high-score {
-                animation: pulsating 2s infinite ease-in-out;
-            }
-
             #highscore-container {
                 position: absolute;
                 width: calc(100% - #{$score-container-gap});
