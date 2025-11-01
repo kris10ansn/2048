@@ -5,6 +5,8 @@ $board-size: 400px;
 $board-margin: math.div($board-size, 40);
 $board-border-radius: math.div($board-size, 20);
 
+$time-transition-tiles: $ENV_VITE_TILE_TRANSITION_DURATION;
+
 $shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 
 $color-background: #333333;
