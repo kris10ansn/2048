@@ -5,7 +5,8 @@ import constants from "@/constants";
 import { Game } from "@/Game";
 import type { Direction } from "@/types/Direction";
 import { match } from "@/util/match";
-import { loadGameState, saveGameState, type GameState } from "./state";
+import { type GameState, loadGameState, saveGameState } from "./state";
+import { ChromeStorageHandler } from "./storage-handlers/ChromeStorageHandler";
 import { LocalStorageHandler } from "./storage-handlers/LocalStorageHandler";
 
 const main = () => {
@@ -18,7 +19,9 @@ const main = () => {
     const board = new HTMLBoardHandler(root, constants.boardSize);
 
     const game = new Game(board, constants.boardSize);
-    const gameStorage = new LocalStorageHandler<GameState>();
+    const gameStorage = ChromeStorageHandler.isAvailable()
+        ? new ChromeStorageHandler<GameState>("sync")
+        : new LocalStorageHandler<GameState>();
 
     loadGameState(game, gameStorage);
 
