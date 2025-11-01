@@ -25,4 +25,8 @@ export class ChromeStorageHandler<T> implements IStorageHandler<T> {
     private getStorageArea() {
         return chrome.storage[this.area];
     }
+
+    public static isAvailable(): boolean {
+        return "chrome" in globalThis && "storage" in chrome;
+    }
 }
