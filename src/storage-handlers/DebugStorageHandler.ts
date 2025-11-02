@@ -1,3 +1,6 @@
+import constants from "../constants";
+import type { GameState } from "../state";
+import type { Point } from "../types/Point";
 import type { IStorageHandler } from "./IStorageHandler";
 
 export class DebugStorageHandler<T> implements IStorageHandler<T> {
@@ -15,3 +18,22 @@ export class DebugStorageHandler<T> implements IStorageHandler<T> {
         console.debug("REMOVE", key);
     }
 }
+
+export const createDummyGameStorage = (
+    ...tiles: (Point & { value: number })[]
+) => {
+    const storage = new DebugStorageHandler<GameState>({
+        board: Array.from({ length: constants.numbers.boardSize }, (_, y) =>
+            Array.from(
+                { length: constants.numbers.boardSize },
+                (_, x) =>
+                    tiles.find((tile) => tile.x === x && tile.y === y)?.value ??
+                    null,
+            ),
+        ),
+        score: 0,
+        highScore: 0,
+        isNewHighScore: false,
+    });
+    return storage;
+};
