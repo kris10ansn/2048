@@ -93,7 +93,12 @@ export class HTMLBoardHandler implements IBoardHandler {
 
         // If there is a tile being merged into this tile, move it as well
         const mergingTile = this.mergingTiles.get(from);
-        if (mergingTile) this.repositionTile(mergingTile, to);
+
+        if (mergingTile) {
+            this.repositionTile(mergingTile, to);
+            this.mergingTiles.delete(from);
+            this.mergingTiles.set(to, mergingTile);
+        }
     }
 
     public lose() {
