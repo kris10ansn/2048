@@ -70,7 +70,12 @@ export class HTMLBoardHandler implements IBoardHandler {
         target.style.zIndex = "10";
         subject.style.zIndex = "1";
 
-        target.animate(...constants.animations.bounce).finished.then(() => {
+        const animation =
+            sum === 2048
+                ? constants.animations.bounce2048
+                : constants.animations.bounce;
+
+        target.animate(...animation).finished.then(() => {
             this.mergingTiles.deleteIndex(
                 this.mergingTiles.data.findIndex((tile) => tile === subject),
             );

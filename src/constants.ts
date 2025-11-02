@@ -27,6 +27,19 @@ const constants = {
             },
         ],
 
+        bounce2048: [
+            [
+                { transform: "scale(1)" },
+                { transform: "scale(2)" },
+                { transform: "scale(1)" },
+            ],
+            {
+                duration: 2000,
+                easing: "ease",
+                iterations: 1,
+            },
+        ],
+
         appear: [
             [{ transform: "scale(0)" }, { transform: "scale(1)" }],
             { duration: 200, easing: "ease", iterations: 1 },
