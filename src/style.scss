@@ -62,6 +62,7 @@ body {
 
     background-color: $color-background;
 
+    position: relative;
     width: $board-size + $board-margin * 3;
 
     display: flex;
