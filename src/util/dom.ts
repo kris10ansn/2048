@@ -9,16 +9,26 @@ export const setDataAttributes = (
 
 export const createHtmlElement = <T extends keyof HTMLElementTagNameMap>(
     tag: T,
-    attributes: Partial<HTMLElementTagNameMap[T]> & {
+    attributes: Omit<Partial<HTMLElementTagNameMap[T]>, "children"> & {
         data?: Record<string, any>;
+        children?: HTMLElement[];
     },
 ): HTMLElementTagNameMap[T] => {
     const element = document.createElement(tag);
-    const { data } = attributes;
+
+    const { data, children } = attributes;
     delete attributes.data;
+    delete attributes.children;
 
     Object.assign(element, attributes);
-    if (data) setDataAttributes(element, data);
+
+    if (data) {
+        setDataAttributes(element, data);
+    }
+
+    if (children) {
+        children.forEach((child) => element.appendChild(child));
+    }
 
     return element;
 };
