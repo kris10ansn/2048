@@ -101,9 +101,7 @@ header {
         &:not(.no-animate) {
             .score-container {
                 $transition-duration: 1s;
-                transition:
-                    width $transition-duration,
-                    opacity $transition-duration;
+                transition: all $transition-duration;
             }
             #high-score {
                 animation: pulsating 2s infinite ease-in-out;
@@ -116,6 +114,7 @@ header {
             text-align: center;
 
             padding: 0.5rem $score-container-padding-x;
+            min-width: fit-content;
             width: $score-container-width;
 
             background-color: $color-board;
