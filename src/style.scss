@@ -98,16 +98,6 @@ header {
 
         position: relative;
 
-        &:not(.no-animate) {
-            .score-container {
-                $transition-duration: 1s;
-                transition: all $transition-duration;
-            }
-            #high-score {
-                animation: pulsating 2s infinite ease-in-out;
-            }
-        }
-
         .score-container {
             font-size: 2rem;
             font-weight: bold;
@@ -142,6 +132,16 @@ header {
 
             #score-container {
                 opacity: 0;
+            }
+
+            &:not(.no-animate) {
+                .score-container {
+                    $transition-duration: 1s;
+                    transition: all $transition-duration;
+                }
+                #high-score {
+                    animation: pulsating 2s infinite ease-in-out;
+                }
             }
         }
     }
