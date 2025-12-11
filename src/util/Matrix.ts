@@ -47,4 +47,13 @@ export class Matrix<T> {
             point.y >= size
         );
     }
+
+    public setSize(size: number) {
+        this.size = size;
+        this.data.length = size * size;
+    }
+
+    public getSize(): number {
+        return this.size;
+    }
 }

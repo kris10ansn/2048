@@ -23,4 +23,7 @@ export interface IBoardHandler {
 
     lose(): void;
     unLose(): void;
+
+    getSize(): number;
+    setSize(size: number): void;
 }

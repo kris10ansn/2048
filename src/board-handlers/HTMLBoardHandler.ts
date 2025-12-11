@@ -147,6 +147,20 @@ export class HTMLBoardHandler implements IBoardHandler {
         element.classList.remove("new-highscore");
     }
 
+    public setSize(size: number): void {
+        this.tiles.setSize(size);
+        this.mergingTiles.setSize(size);
+
+        globalThis.document.documentElement.style.setProperty(
+            "--board-size",
+            size.toString(),
+        );
+    }
+
+    public getSize(): number {
+        return this.tiles.getSize();
+    }
+
     private repositionTile(tile: HTMLElement, to: Point) {
         setDataAttributes(tile, { ...to });
     }

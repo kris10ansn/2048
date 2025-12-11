@@ -8,18 +8,21 @@ export type GameState = {
     highScore: number;
     isNewHighScore: boolean;
     board: (number | null)[][];
+    boardSize: number;
 };
 
 export const loadGameState = async (
     game: Game,
     storageHandler: IStorageHandler<GameState>,
 ) => {
-    const [score, highScore, board, isNewHighScore] = await Promise.all([
-        storageHandler.load("score").catch(logError),
-        storageHandler.load("highScore").catch(logError),
-        storageHandler.load("board").catch(logError),
-        storageHandler.load("isNewHighScore").catch(logError),
-    ]);
+    const [score, highScore, board, isNewHighScore, boardSize] =
+        await Promise.all([
+            storageHandler.load("score").catch(logError),
+            storageHandler.load("highScore").catch(logError),
+            storageHandler.load("board").catch(logError),
+            storageHandler.load("isNewHighScore").catch(logError),
+            storageHandler.load("boardSize").catch(logError),
+        ]);
 
     if (highScore !== null) {
         game.setHighScore(highScore);
@@ -27,6 +30,10 @@ export const loadGameState = async (
 
     if (isNewHighScore !== null) {
         game.setIsNewHighScore(isNewHighScore, { noAnimate: true });
+    }
+
+    if (boardSize !== null) {
+        game.boardHandler.setSize(boardSize);
     }
 
     if (score === null || board === null) {
@@ -53,6 +60,7 @@ export const saveGameState = (
     storageHandler.save("score", game.getScore());
     storageHandler.save("highScore", game.getHighScore());
     storageHandler.save("isNewHighScore", game.getIsNewHighScore());
+    storageHandler.save("boardSize", game.boardHandler.getSize());
 
     const board: (number | null)[][] = [];
 

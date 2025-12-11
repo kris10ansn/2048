@@ -21,10 +21,7 @@ export class Game {
     private isNewHighScore = false;
     private lost = false;
 
-    public constructor(
-        public readonly boardHandler: IBoardHandler,
-        public readonly size: number,
-    ) {}
+    public constructor(public readonly boardHandler: IBoardHandler) {}
 
     public setup() {
         this.addRandomTile();
@@ -239,5 +236,9 @@ export class Game {
         isNewHighScore
             ? this.boardHandler.highlightNewHighScore(options)
             : this.boardHandler.unHighlightNewHighScore();
+    }
+
+    public get size(): number {
+        return this.boardHandler.getSize();
     }
 }

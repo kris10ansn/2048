@@ -25,8 +25,8 @@ const main = () => {
     }
 
     const board = new HTMLBoardHandler(root, constants.numbers.boardSize);
+    const game = new Game(board);
 
-    const game = new Game(board, constants.numbers.boardSize);
     const gameStorage = new ObfuscatedStorageHandler<GameState>(
         ChromeStorageHandler.isAvailable()
             ? new ChromeStorageHandler<Record<string, string>>("local")
