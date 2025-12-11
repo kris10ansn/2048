@@ -1,9 +1,9 @@
 @use "sass:math";
 @use "sass:color";
 
-$board-size: 400px;
-$board-margin: math.div($board-size, 40);
-$board-border-radius: math.div($board-size, 20);
+$board-size-px: 400px;
+$board-margin: math.div($board-size-px, 40);
+$board-border-radius: math.div($board-size-px, 20);
 
 $time-transition-tiles: $ENV_VITE_TILE_TRANSITION_DURATION;
 
@@ -63,7 +63,7 @@ body {
     background-color: $color-background;
 
     position: relative;
-    width: $board-size + $board-margin * 3;
+    width: $board-size-px + $board-margin * 3;
 
     display: flex;
     flex-direction: column;
@@ -192,11 +192,11 @@ main {
     margin: $board-margin;
 
     #board {
-        $box-margin: math.div($board-size, 100);
-        $box-size: math.div($board-size, 4) - $box-margin * 2;
+        $box-margin: math.div($board-size-px, 100);
+        $box-size: math.div($board-size-px, 4) - $box-margin * 2;
 
-        width: $board-size + $box-margin * 2;
-        height: $board-size + $box-margin * 2;
+        width: $board-size-px + $box-margin * 2;
+        height: $board-size-px + $box-margin * 2;
 
         padding: $box-margin;
 
@@ -249,7 +249,7 @@ main {
             align-items: center;
 
             font-weight: bold;
-            font-size: math.div($board-size, 14);
+            font-size: math.div($board-size-px, 14);
 
             z-index: 5;
 
