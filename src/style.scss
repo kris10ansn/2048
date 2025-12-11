@@ -323,8 +323,8 @@ main {
             }
         }
 
-        @for $y from 0 through 10 {
-            @for $x from 0 through 10 {
+        @for $y from 0 through 16 {
+            @for $x from 0 through 16 {
                 .box[data-x="#{$x}"][data-y="#{$y}"],
                 .tile[data-x="#{$x}"][data-y="#{$y}"] {
                     $translate-x: calc($x * ($box-size + $box-margin * 2));
