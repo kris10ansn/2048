@@ -5,8 +5,8 @@
 }
 
 $board-size: var(--board-size);
-$board-size-px: calc($board-size * 100px);
-$board-margin: calc(40px / $board-size);
+$board-size-px: clamp(300px, calc($board-size * 100px), 600px);
+$board-margin: 10px;
 $board-border-radius: 20px;
 
 $time-transition-tiles: $ENV_VITE_TILE_TRANSITION_DURATION;
