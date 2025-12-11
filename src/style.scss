@@ -1,9 +1,5 @@
 @use "sass:color";
 
-:root {
-    --board-size: 6;
-}
-
 $board-size: var(--board-size);
 
 $board-margin: 10px;
