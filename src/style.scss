@@ -5,9 +5,23 @@
 }
 
 $board-size: var(--board-size);
-$board-size-px: clamp(300px, calc($board-size * 100px), 600px);
+
 $board-margin: 10px;
+$board-padding: calc(16px / $board-size);
 $board-border-radius: calc(80px / $board-size);
+
+$_approx_header_height: 80px;
+
+$min-board-size-px: 300px;
+$max-board-size-px: calc(
+    600px - $board-margin * 2 - $board-padding - $_approx_header_height
+);
+
+$board-size-px: clamp(
+    $min-board-size-px,
+    calc($board-size * 100px),
+    $max-board-size-px
+);
 
 $time-transition-tiles: $ENV_VITE_TILE_TRANSITION_DURATION;
 
@@ -203,7 +217,7 @@ main {
         width: calc($board-size-px + $box-margin * 2);
         height: calc($board-size-px + $box-margin * 2);
 
-        padding: $box-margin;
+        padding: $board-padding;
 
         border-radius: $board-border-radius;
 
