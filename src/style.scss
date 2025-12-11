@@ -1,9 +1,10 @@
 @use "sass:math";
 @use "sass:color";
 
-$board-size-px: 400px;
-$board-margin: math.div($board-size-px, 40);
-$board-border-radius: math.div($board-size-px, 20);
+$board-size: 4;
+$board-size-px: $board-size * 100px;
+$board-margin: math.div($board-size-px, $board-size * 10);
+$board-border-radius: math.div($board-size-px, $board-size * 5);
 
 $time-transition-tiles: $ENV_VITE_TILE_TRANSITION_DURATION;
 
@@ -193,7 +194,7 @@ main {
 
     #board {
         $box-margin: math.div($board-size-px, 100);
-        $box-size: math.div($board-size-px, 4) - $box-margin * 2;
+        $box-size: math.div($board-size-px, $board-size) - $box-margin * 2;
 
         width: $board-size-px + $box-margin * 2;
         height: $board-size-px + $box-margin * 2;
@@ -304,8 +305,8 @@ main {
             }
         }
 
-        @for $y from 0 through 4 {
-            @for $x from 0 through 4 {
+        @for $y from 0 through $board-size {
+            @for $x from 0 through $board-size {
                 .box[data-x="#{$x}"][data-y="#{$y}"],
                 .tile[data-x="#{$x}"][data-y="#{$y}"] {
                     translate: $x *
