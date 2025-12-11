@@ -20,6 +20,7 @@ export class DebugStorageHandler<T> implements IStorageHandler<T> {
 }
 
 export const createDummyGameStorage = (
+    boardSize: number,
     ...tiles: (Point & { value: number })[]
 ) => {
     const storage = new DebugStorageHandler<GameState>({
@@ -34,6 +35,7 @@ export const createDummyGameStorage = (
         score: 0,
         highScore: 0,
         isNewHighScore: false,
+        boardSize,
     });
     return storage;
 };
