@@ -18,6 +18,11 @@ export class HTMLBoardHandler implements IBoardHandler {
     ) {
         this.tiles = new Matrix<HTMLElement>(size);
         this.mergingTiles = new Matrix<HTMLElement>(size);
+
+        globalThis.document.documentElement.style.setProperty(
+            "--board-size",
+            size.toString(),
+        );
     }
 
     public addTile(point: Point, value: number) {
