@@ -7,7 +7,7 @@
 $board-size: var(--board-size);
 $board-size-px: clamp(300px, calc($board-size * 100px), 600px);
 $board-margin: 10px;
-$board-border-radius: 20px;
+$board-border-radius: calc(80px / $board-size);
 
 $time-transition-tiles: $ENV_VITE_TILE_TRANSITION_DURATION;
 
@@ -196,7 +196,8 @@ main {
     margin: $board-margin;
 
     #board {
-        $box-margin: 4px;
+        $box-border-radius: calc(80px / $board-size);
+        $box-margin: calc(16px / $board-size);
         $box-size: calc($board-size-px / $board-size - $box-margin * 2);
 
         width: calc($board-size-px + $box-margin * 2);
@@ -241,7 +242,7 @@ main {
 
             transition: all 0.2s ease;
 
-            border-radius: $board-border-radius;
+            border-radius: $box-border-radius;
 
             width: $box-size;
             height: $box-size;
@@ -312,8 +313,10 @@ main {
             @for $x from 0 through 10 {
                 .box[data-x="#{$x}"][data-y="#{$y}"],
                 .tile[data-x="#{$x}"][data-y="#{$y}"] {
-                    translate: calc($x * ($box-size + $box-margin * 2))
-                        calc($y * ($box-size + $box-margin * 2));
+                    $translate-x: calc($x * ($box-size + $box-margin * 2));
+                    $translate-y: calc($y * ($box-size + $box-margin * 2));
+
+                    translate: $translate-x $translate-y;
                 }
             }
         }
