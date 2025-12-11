@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/2048_logo.svg" alt="Logo" width="80" height="80">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/2048_logo.svg" alt="Logo" width="300" >
 
   <h3 align="center">2048</h3>
 
