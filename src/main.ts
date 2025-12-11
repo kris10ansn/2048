@@ -29,7 +29,7 @@ const main = () => {
     const game = new Game(board, constants.numbers.boardSize);
     const gameStorage = new ObfuscatedStorageHandler<GameState>(
         ChromeStorageHandler.isAvailable()
-            ? new ChromeStorageHandler<Record<string, string>>("sync")
+            ? new ChromeStorageHandler<Record<string, string>>("local")
             : new LocalStorageHandler<Record<string, string>>(),
         {
             obfuscate: (data) => btoa(data),
