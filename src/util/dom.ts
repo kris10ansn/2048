@@ -34,3 +34,6 @@ export const createHtmlElement = <T extends keyof HTMLElementTagNameMap>(
 
     return element;
 };
+
+export const getCssVariable = (name: string): string =>
+    getComputedStyle(globalThis.document.body).getPropertyValue(name).trim();
