@@ -1,3 +1,5 @@
+import type { RecursivePartial } from "@/types/RecursivePartial";
+
 export const setDataAttributes = (
     element: Element,
     data: Record<string, any>,
@@ -9,7 +11,7 @@ export const setDataAttributes = (
 
 export const createHtmlElement = <T extends keyof HTMLElementTagNameMap>(
     tag: T,
-    attributes: Omit<Partial<HTMLElementTagNameMap[T]>, "children"> & {
+    attributes: Omit<RecursivePartial<HTMLElementTagNameMap[T]>, "children"> & {
         data?: Record<string, any>;
         children?: HTMLElement[];
     },
