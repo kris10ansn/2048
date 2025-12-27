@@ -4,6 +4,7 @@ import { HTMLBoardHandler } from "@/board-handlers/HTMLBoardHandler";
 import constants from "@/constants";
 import { Game } from "@/Game";
 import type { Direction } from "@/types/Direction";
+import { updateBrowserIcon } from "@/util/generateTileImage";
 import { match } from "@/util/match";
 import {
     type GameState,
@@ -41,6 +42,7 @@ const main = () => {
 
     game.events.addEventListener("did-slide", () => {
         saveGameState(game, gameStorage);
+        updateBrowserIcon(game);
     });
 
     game.events.addEventListener("did-lose", async () => {
@@ -50,6 +52,7 @@ const main = () => {
     buttonNewGame.addEventListener("click", () => {
         game.reset();
         saveGameState(game, gameStorage);
+        updateBrowserIcon(game);
     });
 
     window.addEventListener("keydown", (event) => {

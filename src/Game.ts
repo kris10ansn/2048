@@ -69,6 +69,20 @@ export class Game {
         }
     }
 
+    public getHighestTile(): number {
+        let highestTile = 0;
+
+        for (const { x, y } of createBoardIterator(this.size)()) {
+            const value = this.boardHandler.getTile({ x, y });
+
+            if (value !== null && value > highestTile) {
+                highestTile = value;
+            }
+        }
+
+        return highestTile;
+    }
+
     private lose() {
         this.lost = true;
         this.boardHandler.lose();

@@ -1,3 +1,4 @@
+import type { Game } from "@/Game";
 import { getCssVariable } from "@/util/dom";
 
 export const generateTileImage = (value: number, size: number): ImageData => {
@@ -29,4 +30,14 @@ export const generateTileImage = (value: number, size: number): ImageData => {
     context.fillText(value.toString(), textX, textY);
 
     return context.getImageData(0, 0, size, size);
+};
+
+export const updateBrowserIcon = (game: Game) => {
+    if ("chrome" in globalThis && "action" in chrome) {
+        return chrome.action.setIcon({
+            imageData: generateTileImage(game.getHighestTile(), 128),
+        });
+    }
+
+    return Promise.resolve();
 };
