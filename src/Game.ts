@@ -29,6 +29,11 @@ export class Game {
     }
 
     public reset() {
+        this.clear();
+        this.setup();
+    }
+
+    public clear() {
         const iterator = createBoardIterator(this.size);
 
         for (const point of iterator()) {
@@ -38,8 +43,6 @@ export class Game {
         this.setScore(0);
         this.setIsNewHighScore(false);
         this.unLose();
-
-        this.setup();
     }
 
     public slide(direction: Direction) {
