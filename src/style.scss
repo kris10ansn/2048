@@ -27,22 +27,24 @@ $color-background: #333333;
 $color-board: #746a61;
 $color-background-dark: #8f7a66;
 
-$color-text-light: #f9f6f2;
-$color-text-dark: #776e65;
-$color-text-medium: #e4dfd6;
+:root {
+    --color-text-light: #f9f6f2;
+    --color-text-dark: #776e65;
+    --color-text-medium: #e4dfd6;
 
-$color-tile-2: #eee4da;
-$color-tile-4: #ede0c8;
-$color-tile-8: #f2b179;
-$color-tile-16: #f59563;
-$color-tile-32: #f67c5f;
-$color-tile-64: #f65e3b;
-$color-tile-128: #edcf72;
-$color-tile-256: #edcc61;
-$color-tile-512: #edc850;
-$color-tile-1024: #edc53f;
-$color-tile-2048: #edc22e;
-$color-tile-max: #3c3a32;
+    --color-tile-2: #eee4da;
+    --color-tile-4: #ede0c8;
+    --color-tile-8: #f2b179;
+    --color-tile-16: #f59563;
+    --color-tile-32: #f67c5f;
+    --color-tile-64: #f65e3b;
+    --color-tile-128: #edcf72;
+    --color-tile-256: #edcc61;
+    --color-tile-512: #edc850;
+    --color-tile-1024: #edc53f;
+    --color-tile-2048: #edc22e;
+    --color-tile-max: #3c3a32;
+}
 
 @keyframes pulsating {
     0% {
@@ -127,12 +129,12 @@ header {
 
             div.score-title {
                 font-size: 1.2rem;
-                color: $color-text-medium;
+                color: var(--color-text-medium);
             }
 
             div.score {
                 font-size: 2.4rem;
-                color: $color-text-light;
+                color: var(--color-text-light);
             }
         }
 
@@ -141,7 +143,7 @@ header {
                 position: absolute;
                 width: calc(100% - #{$score-container-gap});
                 right: $score-container-gap;
-                background-color: $color-tile-64;
+                background-color: var(--color-tile-64);
             }
 
             #score-container {
@@ -192,7 +194,7 @@ header {
             border: none;
             border-radius: $border-radius-block;
 
-            color: $color-text-light;
+            color: var(--color-text-light);
             cursor: pointer;
 
             &:hover {
@@ -270,52 +272,52 @@ main {
 
             &[data-value="4096"],
             &[data-value] {
-                background-color: $color-tile-max;
-                color: $color-text-light;
+                background-color: var(--color-tile-max);
+                color: var(--color-text-light);
             }
             &[data-value="2"] {
-                background-color: $color-tile-2;
-                color: $color-text-dark;
+                background-color: var(--color-tile-2);
+                color: var(--color-text-dark);
             }
             &[data-value="4"] {
-                background-color: $color-tile-4;
-                color: $color-text-dark;
+                background-color: var(--color-tile-4);
+                color: var(--color-text-dark);
             }
             &[data-value="8"] {
-                background-color: $color-tile-8;
-                color: $color-text-light;
+                background-color: var(--color-tile-8);
+                color: var(--color-text-light);
             }
             &[data-value="16"] {
-                background-color: $color-tile-16;
-                color: $color-text-light;
+                background-color: var(--color-tile-16);
+                color: var(--color-text-light);
             }
             &[data-value="32"] {
-                background-color: $color-tile-32;
-                color: $color-text-light;
+                background-color: var(--color-tile-32);
+                color: var(--color-text-light);
             }
             &[data-value="64"] {
-                background-color: $color-tile-64;
-                color: $color-text-light;
+                background-color: var(--color-tile-64);
+                color: var(--color-text-light);
             }
             &[data-value="128"] {
-                background-color: $color-tile-128;
-                color: $color-text-light;
+                background-color: var(--color-tile-128);
+                color: var(--color-text-light);
             }
             &[data-value="256"] {
-                background-color: $color-tile-256;
-                color: $color-text-light;
+                background-color: var(--color-tile-256);
+                color: var(--color-text-light);
             }
             &[data-value="512"] {
-                background-color: $color-tile-512;
-                color: $color-text-light;
+                background-color: var(--color-tile-512);
+                color: var(--color-text-light);
             }
             &[data-value="1024"] {
-                background-color: $color-tile-1024;
-                color: $color-text-light;
+                background-color: var(--color-tile-1024);
+                color: var(--color-text-light);
             }
             &[data-value="2048"] {
-                background-color: $color-tile-2048;
-                color: $color-text-light;
+                background-color: var(--color-tile-2048);
+                color: var(--color-text-light);
             }
         }
 
