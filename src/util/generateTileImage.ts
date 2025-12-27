@@ -1,6 +1,6 @@
 import { getCssVariable } from "@/util/dom";
 
-export const generateTileImage = (value: number): OffscreenCanvas => {
+export const generateTileImage = (value: number): ImageData => {
     const canvas = new OffscreenCanvas(512, 512);
     const context = canvas.getContext("2d")!;
 
@@ -28,5 +28,5 @@ export const generateTileImage = (value: number): OffscreenCanvas => {
 
     context.fillText(value.toString(), textX, textY);
 
-    return canvas;
+    return context.getImageData(0, 0, canvas.width, canvas.height);
 };
