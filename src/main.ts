@@ -19,9 +19,12 @@ import { ObfuscatedStorageHandler } from "./storage-handlers/ObfuscatedStorageHa
 const main = () => {
     const root = document.querySelector("div#board");
     const buttonNewGame = document.querySelector("#new-game-button");
+    const boardSizeSelect = document.querySelector(
+        "#board-size-select",
+    ) as HTMLSelectElement;
 
-    if (root === null || buttonNewGame === null) {
-        const elements = { root, buttonNewGame };
+    if (root === null || buttonNewGame === null || boardSizeSelect === null) {
+        const elements = { root, buttonNewGame, boardSizeSelect };
         throw new Error("Missing elements! " + JSON.stringify(elements));
     }
 
@@ -40,6 +43,10 @@ const main = () => {
 
     loadGameState(game, gameStorage);
 
+    gameStorage
+        .load("boardSize")
+        .then((size) => (boardSizeSelect.value = (size ?? 4).toString()));
+
     game.events.addEventListener("did-slide", () => {
         saveGameState(game, gameStorage);
         updateBrowserIcon(game);
@@ -50,7 +57,10 @@ const main = () => {
     });
 
     buttonNewGame.addEventListener("click", () => {
-        game.reset();
+        game.clear();
+        game.boardHandler.setSize(parseInt(boardSizeSelect.value));
+        game.setup();
+
         saveGameState(game, gameStorage);
         updateBrowserIcon(game);
     });
