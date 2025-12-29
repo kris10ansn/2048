@@ -8,7 +8,7 @@ $board-border-radius: calc(80px / $board-size);
 
 $_approx_header_height: 80px;
 
-$min-board-size-px: 300px;
+$min-board-size-px: 320px;
 $max-board-size-px: calc(
     600px - $board-margin * 2 - $board-padding - $_approx_header_height
 );
@@ -105,7 +105,7 @@ header {
     #scores {
         display: flex;
 
-        $score-container-gap: 2rem;
+        $score-container-gap: 1rem;
         $score-container-width: 8rem;
         $score-container-padding-x: 1rem;
 
@@ -170,13 +170,12 @@ header {
 
         align-items: center;
 
-        gap: 1em;
-
         #board-size-select {
             font-size: 1.6rem;
             padding: 1rem;
             border: none;
             border-radius: 0.5rem;
+            margin: 0 1rem;
         }
 
         button {
