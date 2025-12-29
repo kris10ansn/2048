@@ -1,5 +1,5 @@
 import type { Game } from "@/Game";
-import { getCssVariable } from "@/util/dom";
+import { getCssVariable } from "@/util/css";
 
 const getTileColor = (value: number): string => {
     return (
