@@ -1,5 +1,5 @@
 import type { Game } from "@/Game";
-import { getCssVariable } from "@/util/css";
+import { buildFont, getCssVariable } from "@/util/css";
 
 const getTileColor = (value: number): string => {
     return (
@@ -9,6 +9,8 @@ const getTileColor = (value: number): string => {
 };
 
 export const generateTileImage = (value: number, size: number): ImageData => {
+    const fontProps = { family: "Arial, sans-serif", weight: "bold" };
+
     const cssColorTextDark = getCssVariable("--color-text-dark");
     const cssColorTextLight = getCssVariable("--color-text-light");
 
@@ -22,8 +24,10 @@ export const generateTileImage = (value: number, size: number): ImageData => {
     context.roundRect(0, 0, size, size, 0.15 * size);
     context.fill();
 
-    const fontSize = (0.8 - value.toString().length * 0.1) * size;
-    context.font = `bold ${fontSize}px Arial, sans-serif`;
+    // Magic font size formula
+    const fontSize = (0.8 - String(value).length * 0.1) * size;
+    context.font = buildFont({ size: fontSize, ...fontProps });
+
     context.textAlign = "center";
     context.textBaseline = "middle";
 
