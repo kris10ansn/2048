@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+		"zip": "zip 2048-$npm_package_version-build.zip -r dist"
     },
     "devDependencies": {
         "@types/chrome": "^0.1.27",
