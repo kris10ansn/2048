@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 notes/
+
+2048-*-build.zip
