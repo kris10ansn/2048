@@ -6,6 +6,8 @@
   <p align="center">2048 web app made for the browser and browser popups.</p>
 </div>
 
+[Available as a chrome extension popup game](https://chromewebstore.google.com/detail/2048/albdkoglonijjlnbbibnokndedmmpcgi)
+
 ## Technologies
 
 ### TypeScript
